@@ -20,4 +20,4 @@ ax1.grid(True)
 
 plt.show()
 
-fig.savefig('%s/map.pdf' % blazardir)
+fig.savefig('%s/plots/map_blazars.pdf' % blazardir)
