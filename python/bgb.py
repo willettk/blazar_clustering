@@ -341,3 +341,61 @@ def plot_bgb_hist(btable):
 
     return None
 
+def plot_bgb_redshift(btable):
+
+    fig = plt.figure(2,figsize=(9,7))
+    fig.clf()
+    ax = fig.add_subplot(111)
+
+    ax.errorbar(btable['z'],btable['bgb'],btable['bgb_err'],color='grey',alpha=0.2,fmt='.')
+
+    # Bin by type and overplot
+
+    bllac = (btable['btype'] == 'bllac')
+    fsrq = (btable['btype'] == 'fsrq')
+
+    binwidth = 0.05
+    lowz = 0.043
+    highz = 0.75
+
+    zbins = np.arange(lowz,highz,binwidth)
+    z1 = zbins[:-1]
+    z2 = zbins[1:]
+
+    z_fsrq,z_bllac = [],[]
+    z_fsrq_err,z_bllac_err = [],[]
+    for zl,zh in zip(z1,z2):
+        zindex = (btable['z'] >= zl) & (btable['z'] < zh)
+        z_fsrq.append(np.mean(btable[zindex & fsrq]['bgb']))
+        z_bllac.append(np.mean(btable[zindex & bllac]['bgb']))
+        z_fsrq_err.append(np.std(btable[zindex & fsrq]['bgb']))
+        z_bllac_err.append(np.std(btable[zindex & bllac]['bgb']))
+
+        
+    l1 = ax.errorbar(z1+binwidth,z_fsrq,z_fsrq_err,color='red',label='FSRQ',markersize=10,fmt='o')
+    l2 = ax.errorbar(z1+binwidth,z_bllac,z_bllac_err,markerfacecolor='white',markeredgecolor='none',label='BL Lac',markersize=1,fmt='.',ecolor='blue')
+    l3 = ax.scatter(z1+binwidth,z_bllac,facecolors='none',linewidth=10,edgecolors='blue',label='BL Lac',s=15)
+
+    ax.set_xlabel('Redshift',fontsize=20)
+    ax.set_ylabel(r'$B_{gB}$ [Mpc$^{-1.77}$]',fontsize=30)
+
+    ax.set_ylim(-1000,1000)
+
+    # Now add the legend with some customizations.
+    legend = ax.legend((l1,l3),('FSRQ','BL Lac'),loc='upper right', shadow=True,scatterpoints=2)
+    
+    # The frame is matplotlib.patches.Rectangle instance surrounding the legend.
+    #frame = legend.get_frame()
+    #frame.set_facecolor('0.90')
+    
+    # Set the fontsize
+    for label in legend.get_texts():
+        label.set_fontsize(20)
+    
+    #plt.show()
+    fig.tight_layout()
+    fig.savefig('%s/paper/figures/bgb_redshift.pdf' % blazardir)
+
+    return None
+
+
