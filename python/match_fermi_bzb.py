@@ -10,12 +10,9 @@ from scipy.optimize import curve_fit
 
 
 
-def const_func(x):
-    return x*0+72.44
-
 #fermi_filename = 'gll_psc_v08.fit'
-fermi_filename= 'gll_psc_v14.fit'
-bgb_filename = 'blazars_bgb.csv'
+fermi_filename= '../data/gll_psc_v14.fit'
+bgb_filename = '../data/blazars_bgb.csv'
 
 #Getting data from 2FGL
 dat = pf.getdata(fermi_filename)
