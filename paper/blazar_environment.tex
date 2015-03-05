@@ -17,7 +17,7 @@
 
 \title{Environmental And Clustering Properties Of BL Lac and FSRQ Blazars}
 
-\author{Kyle W. Willett, Thomas J. Nelson, \& Lucy F. Fortson}
+\author{Kyle W. Willett et al.}
 \affil{School of Physics and Astronomy, University of Minnesota, Minneapolis, MN 55455}
 
 %%%%%%%%%%%%
@@ -25,12 +25,12 @@
 %%%%%%%%%%%%
 
 \begin{abstract}
-We present results from a large-scale study of the megaparsec-scale environments of blazars, including BL~Lac objects and flat-spectrum radio quasars. Using the catalog of galaxies from the Sloan Digital Sky Survey DR10 catalog, we compute spatial covariance amplitudes for a sample of 757~blazars. The covariance amplitudes are analyzed to compute the relative levels of clustering for various blazar types. We also compare the clustering of blazars to \FRI{} and \FRII{} radio galaxies to explore possibility of a parent population in the context of a blazar sequence. Finally, we present preliminary results on the morphologies of galaxies located within 1~Mpc of blazars, with classifications supplied by Galaxy Zoo data.
+We present results from a large-scale study of the megaparsec:scale environments of blazars, including BL~Lac objects and flat-spectrum radio quasars. Using the catalog of galaxies from the Sloan Digital Sky Survey DR10 catalog, we compute spatial covariance amplitudes for a sample of 757~blazars. The covariance amplitudes are analyzed to compute the relative levels of clustering for various blazar types. We also compare the clustering of blazars to \FRI{} and \FRII{} radio galaxies to explore possibility of a parent population in the context of a blazar sequence. Finally, we present preliminary results on the morphologies of galaxies located within 1~Mpc of blazars, with classifications supplied by Galaxy Zoo data.
 \end{abstract}
 
 \keywords{blazars}
 
-\section{Introduction} \label{sec-intro}
+\section{Introduction} \label{sec:intro}
 
 %%%%%%%%%%%%
 %%% INTRODUCTION
@@ -44,7 +44,7 @@ Since highly-beamed emission from the relativistic jet often dominates the light
 
 Previous clustering studies of blazars have been limited by sample sizes of only a few tens. \citet{wur97} carried out a deep, largely subarcsec imaging survey of BL~Lac objects conducted at the CFHT. \citet{wur93} described the results pertaining to the host galaxies of 50 BL~Lac objects at $z<0.65$; \citet{wur97} report on the clustering environment of 45 of these 50 BL~Lacs. The remaining five objects either have unknown or very uncertain redshifts or we were unable to obtain deep, photometrically calibrated images of them, which prohibited successful clustering analysis.  
 
-With this substantially larger (45 vs. 5) sample, \citet{wur97} confirmed the early result of \citet{pre88} that BL~Lac objects largely avoid rich clusters at low redshift and have distributions in $B$ richness measurements much more consistent with those of \FRII{} radio galaxies than with \FRI{}'s.  The typical environment of a BL~Lac object is a sub-Abell richness class 0 cluster with a CFHT sample mean of $\langle$\bgb$\rangle=209$~Mpc$^{1.77}$. Further, these results apply to all types of BL~Lac objects regardless of selection method (e.g., radio or X-ray selection) or detailed property (e.g., high or low optical polarization percentage, presence/absence of emission lines etc.) because no BL~Lac subtype has statistically distinct \bgb{} values. The only exceptions to this statement are correlations between redshift and \bgb{} and between host galaxy luminosity and \bgb, and a possible anticorrelation between \bgb{} and radio core dominance. 
+With this substantially larger (45 vs. 5) sample, \citet{wur97} confirmed the early result of \citet{pre88} that BL~Lac objects largely avoid rich clusters at low redshift and have distributions in $B$ richness measurements much more consistent with those of \FRII{} radio galaxies than with \FRI{}'s.  The typical environment of a BL~Lac object is a sub-Abell richness class 0 cluster with a CFHT sample mean of $\langle$\bgb$\rangle=209$~Mpc$^{1.77}$. Further, these results apply to all types of BL~Lac objects regardless of selection method (e.g., radio or X-ray selection) or detailed property (e.g., high or low optical polarization percentage, presence/absence of emission lines etc.) because no BL~Lac subtype has statistically distinct \bgb{} values. The only exceptions to this statement are correlations between redshift and \bgb{} and between host galaxy luminosity and \bgb{}, and a possible anticorrelation between \bgb{} and radio core dominance. 
 
 \citet{smi95} computed \bgb{} for 16 BL~Lac galaxies and six \FRI{} galaxies; their respective correlation amplitudes were statistically indistinguishable for the small sample sizes, consistent with an Abell richness class of 0. 
 
@@ -56,14 +56,14 @@ With the release of the Sloan Digital Sky Survey (SDSS), we have for the first t
 %%% METHODS
 %%%%%%%%%%%%
 
-\section{Measuring the clustering properties}\label{sec-methods}
+\section{Measuring the clustering properties}\label{sec:methods}
 
 There are a number of diagnostics used to quantify the local density of galactic environments, including two- and three-dimensional correlation functions, luminosity density fields, $N^{{\rm th}}$-nearest neighbors, and distance to the nearest cluster or group. We analyze blazars by measuring the spatial covariance amplitude $B$ \citep{lon79}. A significant advantage of this method is that it can be applied to projected neighbors without knowing the true three-dimensional distribution of neighboring galaxies, which would be required for density field or nearest neighbor techniques. Accurate redshifts are not available for most galaxies in the survey we use (SDSS), especially at redshifts $z>0.2$. The technique is well-established in the literature of active galaxy environments \citep[e.g.,][]{pre88,yee87,ell89,wur97} and so our results can be compared to other studies. Finally, the method has been shown to be robust independent of the magnitude limit of observations or the counting radius of neighbors. The major disadvantage of the method is that it is a statistical measurement, and so uncertainties on individial measurements are typically quite large. We mitigate this by computing $B$ for several hundred sources and analyzing the statistics of the group, rather than focusing on individual objects. 
 
 The technique for computing $B$ is briefly described here. For any population of objects as viewed on the sky in the far-field limit, its angular distribution can be approximated by:
 
 \begin{equation}
-\label{eqn-angcov}
+\label{eqn:angcov}
 n[\theta]d\Omega = N_g (1 + w[\theta]) d\Omega,
 \end{equation}
 
@@ -72,7 +72,7 @@ n[\theta]d\Omega = N_g (1 + w[\theta]) d\Omega,
 The standard assumption, confirmed with deep optical observations of field galaxies, is that the angular distribution of galaxies follows a power law such that:
 
 \begin{equation}
-\label{eqn-wtheta}
+\label{eqn:wtheta}
 w[\theta] = A\theta^{1-\gamma},
 \end{equation}
 
@@ -80,10 +80,10 @@ w[\theta] = A\theta^{1-\gamma},
 
 Since this derivation has been completely general so far, we note that subscripts are used with computing the covariance amplitudes to indicate the type of object measured. For instance, $A_{gg}$ represents the galaxy-galaxy correlation amplitude, while $A_{gB}$ is the galaxy-BL~Lac correlation amplitude. 
 
-Without a distance dependence, $A$ can be computed for any point on the sky by simply integrating Equation~\ref{eqn-angcov} from 0 out to $\theta$. This gives:
+Without a distance dependence, $A$ can be computed for any point on the sky by simply integrating Equation~\ref{eqn:angcov} from 0 out to $\theta$. This gives:
 
 \begin{equation}
-\label{eqn-angint1}
+\label{eqn:angint1}
 \int^\theta_0 n[\theta^\prime]d\Omega = \int^\theta_0 N_g (1 + w[\theta^\prime]) d\Omega.
 \end{equation}
 
@@ -93,7 +93,7 @@ Without a distance dependence, $A$ can be computed for any point on the sky by s
 d\Omega \simeq 2\pi \theta d\theta.
 \end{equation}
 
-\noindent Integrating Equation~\ref{eqn-angint1} over the angle yields:
+\noindent Integrating Equation~\ref{eqn:angint1} over the angle yields:
 
 \begin{eqnarray}
 \int^\theta_0 n[\theta^\prime] 2 \pi \theta d\theta & = & \int^\theta_0 N_g (1 + w[\theta^\prime]) 2 \pi \theta d\theta \\
@@ -117,7 +117,7 @@ n[r]dV = \rho_g (1 + \xi[r]) dV,
 
 \noindent where $n[r]dV$ is the number of galaxies in a spherical shell at distance $r$ from the center. $\rho_g$ is the spatial density of background galaxies in the shell, and the factor of $(1+\xi[r])$ expresses the probability of finding additional galaxies over the background level. 
 
-If the de-projected angular distribution in Equation~\ref{eqn-wtheta} is a power-law, then the spatial distribution will also follow a power-law with an index of $-\gamma$ (due to the increase in dimensions):
+If the de-projected angular distribution in Equation~\ref{eqn:wtheta} is a power-law, then the spatial distribution will also follow a power-law with an index of $-\gamma$ (due to the increase in dimensions):
 
 \begin{equation}
 \xi[r] = Br^{-\gamma}.
@@ -128,20 +128,20 @@ If the de-projected angular distribution in Equation~\ref{eqn-wtheta} is a power
 \citet{lon79} project the spatial covariance function into angular space to establish a relationship between $A$ and $B$: 
 
 \begin{equation}
-\label{eqn-atob}
+\label{eqn:atob}
 B = \frac{A~N_{bg}[m]}{I_\gamma} \frac{D^{\gamma-3}}{\Psi[M(m,z)]}.
 \end{equation}
 
 Substituting for $A$, this gives the final form:
 
 \begin{equation}
-\label{eqn-bgb}
+\label{eqn:bgb}
 B = (N_t - N_{bg})\frac{(3-\gamma) D^{\gamma-3} \theta^{\gamma-1}}{2 A_\theta I_\gamma \Psi[M(m,z)]}
 \end{equation}
 
 \noindent Here, $m$ is the apparent magnitude completeness limit of the observation; depending on the redshift $z$, this is translated into an absolute magnitude limit $M(m,z)$. $D$ is the angular diameter distance\footnote{\citet{lon79} give this value as the co-moving distance. Later derivations use the luminosity distance \citep[eg,][]{yee87,ell91}; the most recent references replace it with the angular diameter distance \citep{yee99,muz07,zau07}. I have not found an explicit reference to the correction.} to the source. $\Psi[M]$ is the normalized integral luminosity function of galaxies in the field down to brightnesses of $M$. $n_{bg}[m]$ is the surface density of background galaxies brighter than $m$, and $I_\gamma$ is an integration constant dependent on the index of the power-law. For the assumed value of $\gamma$, $I_\gamma=3.87$.  
 
-Since $B$ is impossible to measure directly without explicit data on the three-dimensional positions of all objects in the field (often not possible for fields of view with many faint objects), the standard technique is to measure $A$ from deep exposures and use Equation~\ref{eqn-atob} to determine $B$. Therefore, measuring $B$ for any particular field requires:
+Since $B$ is impossible to measure directly without explicit data on the three-dimensional positions of all objects in the field (often not possible for fields of view with many faint objects), the standard technique is to measure $A$ from deep exposures and use Equation~\ref{eqn:atob} to determine $B$. Therefore, measuring $B$ for any particular field requires:
 
 \begin{itemize}
     \item $\theta$ - angular size of the field
@@ -155,7 +155,7 @@ Since $B$ is impossible to measure directly without explicit data on the three-d
 The uncertainty in a value of $B$ can also be calculated as a function of the total number of background and galaxy counts:
 
 \begin{equation}
-\label{eqn-deltab}
+\label{eqn:deltab}
 \frac{\Delta B}{B} = \frac{\sqrt{(N_t - N_{bg}) + 1.3^2 N_{bg}}}{N_t - N_{bg}} = \frac{\sqrt{N_t + 0.69 N_{bg}}}{N_t - N_{bg}}.
 \end{equation}
 
@@ -164,7 +164,7 @@ The uncertainty in a value of $B$ can also be calculated as a function of the to
 The integrated luminosity function $\Psi[M(m,z)]$ is assumed to be in the form of a Schechter function, which is a combination of a power law at fainter luminosities and an exponential at brighter luminosities. In magnitudes, the differential Schechter LF is:
 
 \begin{eqnarray}
-\label{eqn-schechter}
+\label{eqn:schechter}
 \phi[M] dM = 0.4 ({\rm ln} 10) \phi^*~(10^{0.4(M^* - M)(\alpha + 1)}) \times \nonumber \\
 {\rm exp}[-10^{0.4(M^*-M)}],
 \end{eqnarray}
@@ -174,7 +174,7 @@ The integrated luminosity function $\Psi[M(m,z)]$ is assumed to be in the form o
 The integrated luminosity function for computing the covariance amplitude is:
 
 \begin{equation}
-\label{eqn-schechter_int}
+\label{eqn:schechter_int}
 \Psi[M] = S_n \int_{-\infty}^{M} \phi[M^\prime] dM^\prime, 
 \end{equation}
 
@@ -183,7 +183,7 @@ The integrated luminosity function for computing the covariance amplitude is:
 If the luminosity function for each field is being computed from the data, then galaxies in the field must have their apparent magnitudes $K$-corrected to the observed waveband. For the binned redshift distribution in \citet{yee87}, a differential $K$-correction corrects all observed $r$-band galaxies in the bin to the average redshift of the group; the colors for each morphology are taken from \citet{seb86}. In addition, evolution of the LF as a function of lookback time will also affect the total number of counts in each field. The effects can be summed into the characteristic magnitude for each morphological type $i$ as a function of redshift:
 
 \begin{equation}
-\label{eqn-mstar_morph}
+\label{eqn:mstar_morph}
 M_i^*[z] = M_i^*[0] + K_i[z] + E_i[z],
 \end{equation}
 
@@ -193,7 +193,7 @@ M_i^*[z] = M_i^*[0] + K_i[z] + E_i[z],
 % General properties of sample
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Sample}\label{sec-sample}
+\section{Sample}\label{sec:sample}
 
 The parent blazar sample was assembled from available compilations in the literature. The primary source for blazar identification comes from the multi-frequency catalog Roma-BZCAT \citep{mas09}. BZCAT compiles known blazars from numerous surveys, primarily in radio and X-ray wavelengths. Photometric information includes the radio flux density at 1.4~GHz and the X-ray flux between 0.1--2.4~keV, as well as its $R$-band magnitude as determined from SDSS. We supplemented Roma-BZCAT with SDSS optically-selected BL~Lac \citep{plo10} and FSRQ candidates \citep{che09a}, along with gamma-ray selected blazars from TeVCat \citep{hor08}. 
 
@@ -201,14 +201,14 @@ The parent blazar sample was assembled from available compilations in the litera
 %\includegraphics[width=3.5in]{blazar_zhist.eps}
 \includegraphics[width=3.5in]{figures/blazars_zhist.pdf}
 \caption{Redshift distribution for the 778~blazars within the footprint of SDSS DR10 at $0.043<z<0.75$. BL~Lacs dominate the population at $z<0.5$, while FSRQs are more common at higher redshifts. 
-\label{fig-blazar_zhist}}
+\label{fig:blazar_zhist}}
 \end{figure}
 
-After removing duplicates, the combined catalogs yielded 2934~blazars. Figure~\ref{fig-blazar_zhist} shows their redshift distribution. The distribution varies significantly by blazar sub-type; FSRQs comprise 90\% of the blazars at $z>0.1$, with a mean redshift of $\langle z\rangle=1.34$. The BL~Lacs have a much lower average redshift, at $\langle z\rangle=0.37$. Unclassified blazars \citep[``QSO candidates'', as defined by][]{mas09} have a mean redshift of 0.30; however, a K-S test confirms that its redshift distribution is more consistent with BL~Lacs than QSOs. 
+After removing duplicates, the combined catalogs yielded 2934~blazars. Figure~\ref{fig:blazar_zhist} shows their redshift distribution. The distribution varies significantly by blazar sub-type; FSRQs comprise 90\% of the blazars at $z>0.1$, with a mean redshift of $\langle z\rangle=1.34$. The BL~Lacs have a much lower average redshift, at $\langle z\rangle=0.37$. Unclassified blazars \citep[``QSO candidates'', as defined by][]{mas09} have a mean redshift of 0.30; however, a K-S test confirms that its redshift distribution is more consistent with BL~Lacs than QSOs. 
 
 We then take the positions of each blazar and searched the SDSS DR10 catalog \citep{ahn13} for entries in the ``PhotoObj'' table for nearby neighbors, and restricting results to objects the SDSS pipeline identified as galaxies. The angular radius of the search for each blazar is set at a projected distance 500~kpc at the redshift of the blazar. The apparent magnitude down to which a galaxy is considered for counting is the brighter of: $M_r^* + 2 > M_{r,lim}$, where $M_{r,lim}$ is the absolute magnitude corresponding to the $r$-band completeness limit of the SDSS at the distance of the blazar. 
 
-The value of \bgb{} is computed for each blazar using Equation~\ref{eqn-bgb}. Parameters for local galaxies ($z<0.15$) were taken from the SDSS~DR6 $r'$-band luminosity function of \citet{mon09a}, with $\phi^*=3.22\times10^{-3}$~Mpc$^{-3}$, $M_r^*=-21.47$, and $\alpha=-1.23$ (assuming $h=0.71$). For higher-redshift galaxies, we evolve the luminosity function in bins of $\Delta z=0.1$ out to $z=0.65$ using the $^{0.1}r$-band fits to all galaxies in the AGES survey \citep{coo12}. 
+The value of \bgb{} is computed for each blazar using Equation~\ref{eqn:bgb}. Parameters for local galaxies ($z<0.15$) were taken from the SDSS~DR6 $r'$-band luminosity function of \citet{mon09a}, with $\phi^*=3.22\times10^{-3}$~Mpc$^{-3}$, $M_r^*=-21.47$, and $\alpha=-1.23$ (assuming $h=0.71$). For higher-redshift galaxies, we evolve the luminosity function in bins of $\Delta z=0.1$ out to $z=0.65$ using the $^{0.1}r$-band fits to all galaxies in the AGES survey \citep{coo12}. 
 
 We confirm that computing the spatial covariance amplitudes for a uniformly random set of positions within the SDSS footprint yields an average $B$ value consistent with 0, verifying that our background subtraction is being correctly computed. 
 
@@ -218,39 +218,39 @@ Several additional constraints further lower the number of blazars on which clus
 %%% RESULTS
 %%%%%%%%%%%%
 
-\section{Results}\label{sec-survey_results}
+\section{Results}\label{sec:survey_results}
 
 \begin{figure}
 %\includegraphics[width=3.5in]{bgb_hist.eps}
 \includegraphics[width=3.5in]{figures/bgb_hist.pdf}
 \caption{Distribution of spatial clustering amplitudes (\bgb) from SDSS imaging for various blazar sub-types. Dashed lines show the median \bgb{} values for both the overall blazar (solid) and sub-samples (dashed), respectively. All blazars have average \bgb{} values higher than the background; the average \bgb{} for BL Lacs and candidates is 2--3~times higher than that for FSRQs.
-\label{fig-bgb_hist}}
+\label{fig:bgb_hist}}
 \end{figure}
 
-Figure~\ref{fig-bgb_hist} shows the distribution of the blazar clustering amplitudes (all spatial correlation amplitudes are reported in units of Mpc$^{1.77}$). The mean value for all blazars is $121$, confirming the basic conclusion that blazars tend to lie in moderately overdense regions of the universe. The spread of \bgb{} values for the blazars is large, ranging from $-2652$ to $5801$. Negative values of \bgb{} indicate that some blazars do lie in apparent voids; however, 71\% have clustering amplitudes greater than zero. According to the Abell richness class calibration of \citet{yee99}, this places xx\% of blazars in clusters with Abell classes of 0.
+Figure~\ref{fig:bgb_hist} shows the distribution of the blazar clustering amplitudes (all spatial correlation amplitudes are reported in units of Mpc$^{1.77}$). The mean value for all blazars is $121$, confirming the basic conclusion that blazars tend to lie in moderately overdense regions of the universe. The spread of \bgb{} values for the blazars is large, ranging from $-2652$ to $5801$. Negative values of \bgb{} indicate that some blazars do lie in apparent voids; however, 71\% have clustering amplitudes greater than zero. According to the Abell richness class calibration of \citet{yee99}, this places xx\% of blazars in clusters with Abell classes of 0.
 
 Splitting the sample by blazar type, the clustering amplitudes for BL~Lacs and FSRQs are remarkably similar. BL~Lacs have a mean \bgb{} of $148\pm312$, while FSRQs have $144\pm268$. A Kolmogorov-Smirnov test confirms that the distributions are not inconsistent with being drawn from the same population at a probability of $0.274~(1.0\sigma)$. Therefore, there is no evidence based on the clustering statistics that BL~Lacs and FSRQs inhabit different environments at redshifts $z<0.75$. 
 
 Among the objects studied are 131 objects whose blazar type is defined by BZCAT as ``uncertain''. Discuss possibility of matching these to BL~Lac/FSRQ, information available on selection method, and whether the environmental technique might be used as a diagnostic for blazar type. Probably due to optical lines?
 
-Results from our study can be compared to earlier results; however, differences in the parameters used in Equation~\ref{eqn-bgb} will cause systematic differences. The most immediate are the parameters used for the galaxy luminosity function $\Psi[M]$ and the cosmology used to compute the distance. For example, applying the cosmology assumed by \citet{wur97} ($q_0=0.02, \Omega_\Lambda=0, H_0=50~\mbox{km s}^{-1}\mbox{Mpc}^{-1}$) to our blazar sample raises the mean \bgb{} value from $121\pm436$ to $167\pm558$. Their luminosity function parameters are very similar to our own, with a slightly shallower slope ($\alpha=-1.0$), a $M_r^*$ value of $-20.9$, and a luminosity function evolution where $M$ evolves as $E(z)\sim z$. Adjusting only for the cosmology, our mean value for the BL~Lacs of $161\pm367$ is close to the \citet{wur97} value of $209\pm386$. 
+Results from our study can be compared to earlier results; however, differences in the parameters used in Equation~\ref{eqn:bgb} will cause systematic differences. The most immediate are the parameters used for the galaxy luminosity function $\Psi[M]$ and the cosmology used to compute the distance. For example, applying the cosmology assumed by \citet{wur97} ($q_0=0.02, \Omega_\Lambda=0, H_0=50~\mbox{km s}^{-1}\mbox{Mpc}^{-1}$) to our blazar sample raises the mean \bgb{} value from $121\pm436$ to $167\pm558$. Their luminosity function parameters are very similar to our own, with a slightly shallower slope ($\alpha=-1.0$), a $M_r^*$ value of $-20.9$, and a luminosity function evolution where $M$ evolves as $E(z)\sim z$. Adjusting only for the cosmology, our mean value for the BL~Lacs of $161\pm367$ is close to the \citet{wur97} value of $209\pm386$. 
 
-The blazar \bgb{} values are relatively flat as a function of redshift for $z<0.5$. Between $z=0.5$ and 0.75, however, there is a significant increase in the average \bgb, increasing by a factor of $\sim2-3$. The same effect is seen for both BL~Lacs and FSRQs (Figure~\ref{fig-bgb_redshift}). Similar results were found for BL~Lacs by \citet{wur97}, who found that the median \bgb{} increased by a factor of four at $z>0.35$, and for which the trend is the same for both radio- and X-ray-selected BL~Lacs. Our results, which have $\sim10$ times as many objects, suggest that richer clusters begin to occur at a higher redshift; the medians of the samples when split at $z=0.35$ are almost identical. 
+The blazar \bgb{} values are relatively flat as a function of redshift for $z<0.5$. Between $z=0.5$ and 0.75, however, there is a significant increase in the average \bgb, increasing by a factor of $\sim2-3$. The same effect is seen for both BL~Lacs and FSRQs (Figure~\ref{fig:bgb_redshift}). Similar results were found for BL~Lacs by \citet{wur97}, who found that the median \bgb{} increased by a factor of four at $z>0.35$, and for which the trend is the same for both radio- and X-ray-selected BL~Lacs. Our results, which have $\sim10$ times as many objects, suggest that richer clusters begin to occur at a higher redshift; the medians of the samples when split at $z=0.35$ are almost identical. 
 
 \begin{figure}
 %\includegraphics[width=3.5in]{bgb_redshift.eps}
 \includegraphics[width=3.5in]{figures/bgb_redshift.pdf}
 \caption{\bgb{} for the blazars as a function of redshift. Grey points show measurements (with uncertainties) for individual blazars; blue and red circles show the binned mean values for \bgb{} for the BL~Lac and FSRQ sub-samples. 
-\label{fig-bgb_redshift}}
+\label{fig:bgb_redshift}}
 \end{figure}
 
 %%%%%%%%%%%%
 %%% DISCUSSION
 %%%%%%%%%%%%
 
-\section{Discussion}\label{sec-survey_discussion}
+\section{Discussion}\label{sec:survey_discussion}
 
-\subsection{Comparison samples}\label{ssec-comparison}
+\subsection{Comparison samples}\label{ssec:comparison}
 
 Comparison samples:
 
@@ -261,9 +261,9 @@ Comparison samples:
     \item random points on the sky 
 \end{itemize}
 
-We compare the clustering properties of blazars to active radio galaxies since, according to the unified model, these are the parent populations of blazars. As a result, the clustering properties of radio galaxies should be similar to those of blazars, assuming that the orientation of the jet has no effect on the megaparsec-scale environment. 
+We compare the clustering properties of blazars to active radio galaxies since, according to the unified model, these are the parent populations of blazars. As a result, the clustering properties of radio galaxies should be similar to those of blazars, assuming that the orientation of the jet has no effect on the megaparsec:scale environment. 
 
-A concern for comparing clustering properties of other galaxy types to blazars is to avoid biases of sample selection wherever possible. One possible bias arises from the redshift distributions of any comparison sample. Results from Figure~\ref{fig-bgb_redshift} show a rise in $B$ values as a function of redshift. If we were comparing our blazars to galaxies with a higher average redshift, the clustering values would be similarly high. We therefore match the redshift distributions of any comparison sample using the following method: firstly, we consider only objects in the same redshift range ($0.043<z<0.75$) as for the blazars. Next, we bin the redshift distribution of the blazars with $\Delta z=0.02$ and count the number of objects per bin. We then truncate the comparison sample at the highest-redshift bin for which the number of blazars is greater than or equal to the number of comparison galaxies. For all bins at lower redshift, we randomly select comparison galaxies within that bin to search for neighbors and compute \bgb. 
+A concern for comparing clustering properties of other galaxy types to blazars is to avoid biases of sample selection wherever possible. One possible bias arises from the redshift distributions of any comparison sample. Results from Figure~\ref{fig:bgb_redshift} show a rise in $B$ values as a function of redshift. If we were comparing our blazars to galaxies with a higher average redshift, the clustering values would be similarly high. We therefore match the redshift distributions of any comparison sample using the following method: firstly, we consider only objects in the same redshift range ($0.043<z<0.75$) as for the blazars. Next, we bin the redshift distribution of the blazars with $\Delta z=0.02$ and count the number of objects per bin. We then truncate the comparison sample at the highest-redshift bin for which the number of blazars is greater than or equal to the number of comparison galaxies. For all bins at lower redshift, we randomly select comparison galaxies within that bin to search for neighbors and compute \bgb. 
 
 The largest available catalogue of radio galaxies with robust morphological classifications is the \config~sample of \citet{gen08}. \config~consists of 274 bright radio sources at 1.4~GHz, with visually-classified \FRI{}/\FRII{} morphologies available for all galaxies. We searched the SDSS for neighbors of \config~galaxies with confirmed redshifts, which comprises 89\% of the total. We were able to compute $B$ values for 283 radio galaxies, of which 55 were \FRI{} and 184 were \FRII{}. The remaining 44 galaxies were classified by \citet{gen08} as compact sources, with no visibly extended radio lobes. 
 
@@ -287,7 +287,7 @@ The mean $B$ values for the galaxies selected by optical morphology are signific
 
 \begin{deluxetable*}{lrccl}
 \tabletypesize{\scriptsize}
-\tablecaption{Measured spatial covariance amplitudes from SDSS imaging \label{tbl-bgtable}}
+\tablecaption{Measured spatial covariance amplitudes from SDSS imaging \label{tbl:bgtable}}
 \tablewidth{0pt}
 \tablehead{
 \colhead{Galaxy sample} &
@@ -326,20 +326,20 @@ Optical galaxies                          & 624         & 125            & 335  
 \tablerefs{(1) - \citet{mas09}; (2) - \citet{plo10}; (3) - \citet{hor08}; (4) - \citet{gen08}; (5) - \citet{kim08}; (6) - \citet{lin11}}
 \end{deluxetable*}
 
-\subsection{The blazar sequence/envelope}\label{ssec-sequence}
+\subsection{The blazar sequence/envelope}\label{ssec:sequence}
 
 \begin{figure}
 %\includegraphics[width=3.5in]{bgb_blazarsequence_allseds.eps}
 \includegraphics[width=3.5in]{figures/bgb_blazarsequence_allseds.pdf}
 \caption{{\bf NOT YET PYTHON GENERATED} Blazars from the \citet{mey11} TEX sample for which we were able to calculate \bgb{} values, plotted as a function of their peak synchrotron frequency and luminosity. The size of the symbol is proportional to the blazar \bgb{} value, while the color is set by the blazar redshift. The two dashed lines show the expected tracks that a blazar would follow as the inclination angle with respect to the observer increases \citep[Figure~4 in][]{mey11}. The track on the left is for a single-component jet and the track on the right is for a weak, decelerating jet.
-\label{fig-blazarsequence}}
+\label{fig:blazarsequence}}
 \end{figure}
 
 The concept of the blazar sequence has been called into question in recent years. \citet{pad07} demonstrated that the anti-correlation between \lpeak~and \nupeak~drastically decreases when selection effects of blazar surveys are taken into account. This, combined with the discovery of FSRQs peaking in the UV/X-ray bands \citep{pad03,lan08a} and the lack of high-frequency BL~Lacs, suggested that the simplest form of the blazar sequence has been ruled out. 
 
 \citet{mey11} suggested a modification to the sequence in which blazars form two distinct populations in the \nupeak-\lpeak~plane. The two populations each form an upper edge to envelopes of progressively misaligned blazars; the parent populations of the two galaxies are related to `weak jet' (low kinetic powers with radiatively inefficient accretion) and `strong jet' sources (single Lorentz factor-jets with efficient accretion rates). The former population corresponds to \FRI{} radio galaxies and most BL~Lacs, while the latter corresponds to \FRII{} galaxies and most FSRQs. The observed properties of the two blazar populations overlap with those of radio galaxies as the jets become more misaligned, near \nupeak$\sim10^{13}$~Hz and \lpeak$\sim10^{42}$~erg~s$^{-1}$. 
 
-Figure~\ref{fig-blazarsequence} shows data in the \nupeak-\lpeak~plane for blazars with \bgb{} (as measured in Section~\ref{sec-data}). The subsample of objects displayed are all blazars with well-determined \bgb{} values and enough multi-wavelength photometric measurements to accurately fit an SED using the method of \citet{mey11}. Only 115 blazars (52 BL~Lacs, 55 FSRQs, and 8 with uncertain classification) meet these criteria. Of these, roughly 80\% lie along the single-jet track proposed by \citet{mey11}; the ratio between the two groups is similar to that seen in their larger TEX sample. 
+Figure~\ref{fig:blazarsequence} shows data in the \nupeak-\lpeak~plane for blazars with \bgb{} (as measured in Section~\ref{sec:data}). The subsample of objects displayed are all blazars with well-determined \bgb{} values and enough multi-wavelength photometric measurements to accurately fit an SED using the method of \citet{mey11}. Only 115 blazars (52 BL~Lacs, 55 FSRQs, and 8 with uncertain classification) meet these criteria. Of these, roughly 80\% lie along the single-jet track proposed by \citet{mey11}; the ratio between the two groups is similar to that seen in their larger TEX sample. 
 
 The measured blazars show only weak differences in clustering amplitude when separating the low- from high-peaked blazars, with the dividing frequency set at \nupeak~$=~10^{14.5}$~Hz. While the mean \bgb{} values for LSP vs. HSP blazars differ significantly ($-28$ vs. 239~Mpc$^{1.77}$), these are significantly affected by one or two outliers at the tail end of each distribution -- the medians are only 18 and 63~Mpc$^{1.77}$, respectively. A K-S test reveals that the \bgb{} distributions are not inconsistent above the $1\sigma$ level. Similarly, no difference in clustering amplitude is seen when separating blazars by their peak luminosity (at \lpeak=$10^{45}$~erg~s$^{-1}$). As a result, we see no evidence that the Mpc-scale environment is related to the blazar jet efficiency. There is also no correlation between \bgb{} and either \lext~or the black hole mass ($|\rho|<0.15$ for all the above parameters). 
 
@@ -347,7 +347,7 @@ The measured blazars show only weak differences in clustering amplitude when sep
 
 \subsection{Other studies of blazar/AGN environments with $B$}
 
-\citet{lie11} examined the megaparsec-scale environments of active galaxies at $z<0.4$ by constructing a luminosity-density field based on luminous red galaxies in the SDSS. They showed that radio galaxies tended to exist in overdensities on scales of 3~$h^{-1}$~Mpc. BL~Lacs were primarily found in low-density environments, but were also found in high-density regions. Radio-loud quasars were found in low-density environments as compared to their LRG environment. 
+\citet{lie11} examined the megaparsec:scale environments of active galaxies at $z<0.4$ by constructing a luminosity-density field based on luminous red galaxies in the SDSS. They showed that radio galaxies tended to exist in overdensities on scales of 3~$h^{-1}$~Mpc. BL~Lacs were primarily found in low-density environments, but were also found in high-density regions. Radio-loud quasars were found in low-density environments as compared to their LRG environment. 
 
 \citet{pac14} study both the effects of radio-loud AGN on satellite galaxies and the possible role of triggering satellites in AGNs using SDSS data. They find that radio-loud AGN exhibit a 50\% excess in the number of satellites within 100~kpc when compared to a matched control sample. The incidence of radio-loud AGN is similar for field galaxies and non-BCG cluster members --- this implies that the fueling is a relatively local property, depending only on conditions in the host halo instead of the cluster. 
 
@@ -367,9 +367,17 @@ Recently, \citet{ram13} used the angular clustering amplitudes to compare interm
 
 We have also isolated several BL~Lacs with unusually weak variability properties. One interpretation is that galaxies with low variability do not have the direction of ultra-high energy cosmic ray (UHECR) emission isotropized by the magnetic regions of surrounding galaxies \citep{raz12}. In that case, we would expect low-variability BL~Lacs to occur in underdense regions, and thus have \bgb{} values below the average for BL~Lacs.  
 
-Two BL~Lacs with low variability (C.~Dermer, priv. comm.) have been identified within the SDSS coverage: 1ES~0229+200 ($z=0.14$) and RGB~J0152+017 ($z=0.08$). \bgb{} values for these blazars are 1395 and 4068, respectively; these are well {\it above} the average \bgb{} for BL~Lacs, and in fact fall above the 90th percentile. We note, however, that this is also consistent with the redshift-\bgb{} relation observed in Figure~\ref{fig-bgb_redshift}. If we account for this dependence by looking at the mean \bgb{} values for each redshift bin, both BL~Lacs have clustering amplitudes very close to the mean value at their respective redshift. Our results show no evidence that these low-variability objects differ in their environmental parameters.  
+Two BL~Lacs with low variability (C.~Dermer, priv. comm.) have been identified within the SDSS coverage: 1ES~0229+200 ($z=0.14$) and RGB~J0152+017 ($z=0.08$). \bgb{} values for these blazars are 1395 and 4068, respectively; these are well {\it above} the average \bgb{} for BL~Lacs, and in fact fall above the 90th percentile. We note, however, that this is also consistent with the redshift-\bgb{} relation observed in Figure~\ref{fig:bgb_redshift}. If we account for this dependence by looking at the mean \bgb{} values for each redshift bin, both BL~Lacs have clustering amplitudes very close to the mean value at their respective redshift. Our results show no evidence that these low-variability objects differ in their environmental parameters.  
 
-Idea: plot variability vs. \bgb? Sent email to Chuck Dermer asking about this. 
+We analyze the correlation between clustering amplitude and variability by using data from the 3FGL sample \citep{ack15}. Variability is defined from long-term observations of the gamma-ray flux of blazars measured with the {\it Fermi} satellite over an energy range of 100~MeV to 300~GeV. From this data, the variability index \tsvar{} is calculated as the sum of $2\times\log{\mathcal{L}}$, where $\mathcal{L}$ is the likelihood of a difference between the four-year light curves (binned on monthly timescales) and a constant flux. Since \tsvar{} is distributed as a $\chi^2$ function with $N=47$ degrees of freedom, a source is defined as variable at the 99\% confidence level if \tsvar{}$\geq72.44$.
+
+We plot clustering amplitude as a function of variability in Figure~\ref{fig:variability}. While the overall correlation is weak, there is a hint of a trend for the most variable objects; the mean value of \bgb{} for blazars with \tsvar$>72.44$ is $XX$, as compared to $YY$ for the non-variable blazars. In addition, the eight blazars with the highest levels of variability all have positive clustering amplitudes, indicating richer environments with none found in relative voids. 
+
+\begin{figure}
+\includegraphics[width=3.5in]{figures/variability.pdf}
+\caption{Variability \tsvar{} as a function of clustering amplitude \bgb{}. The horizontal green line shows the 99\% confidence limit for a variable source; all blazars above this line are considered variable at gamma-ray energies. 
+\label{fig:variability}}
+\end{figure}
 
 %%%%%%%%%%%%
 %%% CONCLUSIONS
