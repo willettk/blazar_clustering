@@ -6,6 +6,7 @@
 \usepackage{verbatim}
 \usepackage{natbib}
 \usepackage{amsmath}
+\usepackage{color}
 \bibliographystyle{apj}
 
 \input blazar_environment_macros.tex
@@ -17,7 +18,7 @@
 
 \title{Environmental And Clustering Properties Of BL Lac and FSRQ Blazars}
 
-\author{Kyle W. Willett et al.}
+\author{Kyle W. Willett, Lucy F. Fortson, Thomas J. Nelson, Karlen Shahinyan, Jonathan Dumm}
 \affil{School of Physics and Astronomy, University of Minnesota, Minneapolis, MN 55455}
 
 %%%%%%%%%%%%
@@ -25,7 +26,7 @@
 %%%%%%%%%%%%
 
 \begin{abstract}
-We present results from a large-scale study of the megaparsec:scale environments of blazars, including BL~Lac objects and flat-spectrum radio quasars. Using the catalog of galaxies from the Sloan Digital Sky Survey DR10 catalog, we compute spatial covariance amplitudes for a sample of 757~blazars. The covariance amplitudes are analyzed to compute the relative levels of clustering for various blazar types. We also compare the clustering of blazars to \FRI{} and \FRII{} radio galaxies to explore possibility of a parent population in the context of a blazar sequence. Finally, we present preliminary results on the morphologies of galaxies located within 1~Mpc of blazars, with classifications supplied by Galaxy Zoo data.
+We present results from a large-scale study of the megaparsec-scale environments of blazars, including BL~Lac objects and flat-spectrum radio quasars. Using the catalog of galaxies from the Sloan Digital Sky Survey DR10 catalog, we compute spatial covariance amplitudes for a sample of 757~blazars. The covariance amplitudes are analyzed to compute the relative levels of clustering for various blazar types. We also compare the clustering of blazars to \FRI{} and \FRII{} radio galaxies to explore possibility of a parent population in the context of a blazar sequence. Finally, we present preliminary results on the morphologies of galaxies located within 1~Mpc of blazars, with classifications supplied by Galaxy Zoo data.
 \end{abstract}
 
 \keywords{blazars}
@@ -48,9 +49,9 @@ With this substantially larger (45 vs. 5) sample, \citet{wur97} confirmed the ea
 
 \citet{smi95} computed \bgb{} for 16 BL~Lac galaxies and six \FRI{} galaxies; their respective correlation amplitudes were statistically indistinguishable for the small sample sizes, consistent with an Abell richness class of 0. 
 
-Mention blazar envelope/sequence work, and possibility of how environment studies play into the larger scientific goal. 
+{\note Mention blazar envelope/sequence work, and possibility of how environment studies play into the larger scientific goal.}
 
-With the release of the Sloan Digital Sky Survey (SDSS), we have for the first time a large and deep catalog with nearly uniform photometry and coverage out to redshifts greater than 1. We combine the SDSS data with the latest identifications of blazars, for which counts are now in the thousands. The larger sample size allows for the first time robust classification of blazar clustering properties, which we compare to other data to explore the possible parent population(s).
+With the release of the Sloan Digital Sky Survey (SDSS), we have for the first time a large and deep catalog with nearly uniform photometry and coverage out to redshifts greater than $z=1$. We combine the SDSS data with the latest identifications of blazars, for which counts are now in the thousands. The larger sample size allows for the first time robust classification of blazar clustering properties, which we compare to other data to explore the possible parent population(s).
 
 %%%%%%%%%%%%
 %%% METHODS
@@ -204,13 +205,13 @@ The parent blazar sample was assembled from available compilations in the litera
 \label{fig:blazar_zhist}}
 \end{figure}
 
-After removing duplicates, the combined catalogs yielded 2934~blazars. Figure~\ref{fig:blazar_zhist} shows their redshift distribution. The distribution varies significantly by blazar sub-type; FSRQs comprise 90\% of the blazars at $z>0.1$, with a mean redshift of $\langle z\rangle=1.34$. The BL~Lacs have a much lower average redshift, at $\langle z\rangle=0.37$. Unclassified blazars \citep[``QSO candidates'', as defined by][]{mas09} have a mean redshift of 0.30; however, a K-S test confirms that its redshift distribution is more consistent with BL~Lacs than QSOs. 
+After removing duplicates, the combined catalogs yielded 2934~blazars. Figure~\ref{fig:blazar_zhist} shows their redshift distribution. The distribution varies significantly by blazar sub-type; FSRQs comprise 90\% of the blazars at $z>0.1$, with a mean redshift of $\langle z\rangle=1.34$. The BL~Lacs have a much lower average redshift, at $\langle z\rangle=0.37$. Unclassified blazars \citep[``QSO candidates'', as defined by][]{mas09} have a mean redshift of 0.30; however, a K-S test confirms {\note (to what $d$-value?)} that its redshift distribution is more consistent with BL~Lacs than QSOs. 
 
-We then take the positions of each blazar and searched the SDSS DR10 catalog \citep{ahn13} for entries in the ``PhotoObj'' table for nearby neighbors, and restricting results to objects the SDSS pipeline identified as galaxies. The angular radius of the search for each blazar is set at a projected distance 500~kpc at the redshift of the blazar. The apparent magnitude down to which a galaxy is considered for counting is the brighter of: $M_r^* + 2 > M_{r,lim}$, where $M_{r,lim}$ is the absolute magnitude corresponding to the $r$-band completeness limit of the SDSS at the distance of the blazar. 
+We then take the positions of each blazar and searched the SDSS DR10 catalog \citep{ahn14} for entries in the ``PhotoObj'' table for nearby neighbors, and restricting results to objects the SDSS pipeline identified as galaxies. The angular radius of the search for each blazar is set at a projected distance 500~kpc at the redshift of the blazar. The apparent magnitude down to which a galaxy is considered for counting is the brighter of: $M_r^* + 2 > M_{r,lim}$, where $M_{r,lim}$ is the absolute magnitude corresponding to the $r$-band completeness limit of the SDSS at the distance of the blazar. 
 
 The value of \bgb{} is computed for each blazar using Equation~\ref{eqn:bgb}. Parameters for local galaxies ($z<0.15$) were taken from the SDSS~DR6 $r'$-band luminosity function of \citet{mon09a}, with $\phi^*=3.22\times10^{-3}$~Mpc$^{-3}$, $M_r^*=-21.47$, and $\alpha=-1.23$ (assuming $h=0.71$). For higher-redshift galaxies, we evolve the luminosity function in bins of $\Delta z=0.1$ out to $z=0.65$ using the $^{0.1}r$-band fits to all galaxies in the AGES survey \citep{coo12}. 
 
-We confirm that computing the spatial covariance amplitudes for a uniformly random set of positions within the SDSS footprint yields an average $B$ value consistent with 0, verifying that our background subtraction is being correctly computed. 
+We confirm that computing the spatial covariance amplitudes for a uniformly random set of positions within the SDSS footprint yields an average value consistent with $B=0$, verifying that our background subtraction is being correctly computed. 
 
 Several additional constraints further lower the number of blazars on which clustering analysis can be performed. Although BZCAT is an all-sky catalog, only 1834 (63\%) of the objects fall within the SDSS footprint. Of those blazars, we analyze data only for blazars in the redshift range $0.043<z<0.75$. The lower limit is due to the practical consideration of searching large areas of sky within a projected radius of 500~kpc, which corresponds to an angular size of 10\arcmin. This eliminated 1.5\% of the blazars within the SDSS footprint. The upper redshift limit is set by the sensitivity of the SDSS; blazars at high redshifts will have fewer neighboring galaxies that can be detected with SDSS. For high redshift objects computing the \bgb{} coefficient will (statistically) include no neighbors that are physically associated with the blazar, and so the clustering coefficient approaches that of the background sky. The upper redshift limit is thus chosen so that our absolute counting magnitude corresponds to an $M^*$ galaxy at $z=0.75$, eliminating another 41\% of the blazars in the SDSS footprint. Finally, to ensure that measurements of \bgb{} are not dominated by low number counts, we analyze only blazars with at least 10 neighboring galaxies detected. The final sample contains 757~blazars, with 528~BL~Lacs, 98~FSRQs, and 131~unclassified blazars. 
 
@@ -227,7 +228,7 @@ Several additional constraints further lower the number of blazars on which clus
 \label{fig:bgb_hist}}
 \end{figure}
 
-Figure~\ref{fig:bgb_hist} shows the distribution of the blazar clustering amplitudes (all spatial correlation amplitudes are reported in units of Mpc$^{1.77}$). The mean value for all blazars is $121$, confirming the basic conclusion that blazars tend to lie in moderately overdense regions of the universe. The spread of \bgb{} values for the blazars is large, ranging from $-2652$ to $5801$. Negative values of \bgb{} indicate that some blazars do lie in apparent voids; however, 71\% have clustering amplitudes greater than zero. According to the Abell richness class calibration of \citet{yee99}, this places xx\% of blazars in clusters with Abell classes of 0.
+Figure~\ref{fig:bgb_hist} shows the distribution of the blazar clustering amplitudes (all spatial correlation amplitudes are reported in units of Mpc$^{1.77}$). The mean value for all blazars is $121$, confirming the basic conclusion that blazars tend to lie in moderately overdense regions of the universe. The spread of \bgb{} values for the blazars is large, ranging from $-2652$ to $5801$. Negative values of \bgb{} indicate that some blazars do lie in apparent voids; however, 71\% have clustering amplitudes greater than zero. According to the Abell richness class calibration of \citet{yee99}, this places {\note xx\% of blazars in clusters with Abell classes of 0.}
 
 Splitting the sample by blazar type, the clustering amplitudes for BL~Lacs and FSRQs are remarkably similar. BL~Lacs have a mean \bgb{} of $148\pm312$, while FSRQs have $144\pm268$. A Kolmogorov-Smirnov test confirms that the distributions are not inconsistent with being drawn from the same population at a probability of $0.274~(1.0\sigma)$. Therefore, there is no evidence based on the clustering statistics that BL~Lacs and FSRQs inhabit different environments at redshifts $z<0.75$. 
 
@@ -331,7 +332,7 @@ Optical galaxies                          & 624         & 125            & 335  
 \begin{figure}
 %\includegraphics[width=3.5in]{bgb_blazarsequence_allseds.eps}
 \includegraphics[width=3.5in]{figures/bgb_blazarsequence_allseds.pdf}
-\caption{{\bf NOT YET PYTHON GENERATED} Blazars from the \citet{mey11} TEX sample for which we were able to calculate \bgb{} values, plotted as a function of their peak synchrotron frequency and luminosity. The size of the symbol is proportional to the blazar \bgb{} value, while the color is set by the blazar redshift. The two dashed lines show the expected tracks that a blazar would follow as the inclination angle with respect to the observer increases \citep[Figure~4 in][]{mey11}. The track on the left is for a single-component jet and the track on the right is for a weak, decelerating jet.
+\caption{Blazars from the \citet{mey11} TEX sample for which we were able to calculate \bgb{} values, plotted as a function of their peak synchrotron frequency and luminosity. The size of the symbol is proportional to the blazar \bgb{} value, while the color is set by the blazar redshift. The two dashed lines show the expected tracks that a blazar would follow as the inclination angle with respect to the observer increases \citep[Figure~4 in][]{mey11}. The track on the left is for a single-component jet and the track on the right is for a weak, decelerating jet.
 \label{fig:blazarsequence}}
 \end{figure}
 
@@ -347,6 +348,8 @@ The measured blazars show only weak differences in clustering amplitude when sep
 
 \subsection{Other studies of blazar/AGN environments with $B$}
 
+{\note All of the references below are essentially a brain-dump of the literature as they appeared on astro-ph from 2011-2016. The papers need to be re-read and then their conclusions synthesized with our results.}
+
 \citet{lie11} examined the megaparsec:scale environments of active galaxies at $z<0.4$ by constructing a luminosity-density field based on luminous red galaxies in the SDSS. They showed that radio galaxies tended to exist in overdensities on scales of 3~$h^{-1}$~Mpc. BL~Lacs were primarily found in low-density environments, but were also found in high-density regions. Radio-loud quasars were found in low-density environments as compared to their LRG environment. 
 
 \citet{pac14} study both the effects of radio-loud AGN on satellite galaxies and the possible role of triggering satellites in AGNs using SDSS data. They find that radio-loud AGN exhibit a 50\% excess in the number of satellites within 100~kpc when compared to a matched control sample. The incidence of radio-loud AGN is similar for field galaxies and non-BCG cluster members --- this implies that the fueling is a relatively local property, depending only on conditions in the host halo instead of the cluster. 
@@ -361,9 +364,15 @@ Recently, \citet{ram13} used the angular clustering amplitudes to compare interm
 
 \citet{vil14a} study Type 1 vs Type 2 AGN in the SDSS counting nearby neighbors, along with Galaxy~Zoo data. 
 
-\citet{fur14} look at $\gamma$-ray blazars as correlated with voids in the CMB. 
+\citet{fur15} look at $\gamma$-ray blazars as correlated with voids in the CMB. 
 
 \subsection{Variability and environment}
+
+\begin{figure}
+\includegraphics[width=3.5in]{figures/variability.pdf}
+\caption{Variability \tsvar{} as a function of clustering amplitude \bgb{}. The horizontal green line shows the 99\% confidence limit for a variable source; all blazars above this line are considered variable at gamma-ray energies. 
+\label{fig:variability}}
+\end{figure}
 
 We have also isolated several BL~Lacs with unusually weak variability properties. One interpretation is that galaxies with low variability do not have the direction of ultra-high energy cosmic ray (UHECR) emission isotropized by the magnetic regions of surrounding galaxies \citep{raz12}. In that case, we would expect low-variability BL~Lacs to occur in underdense regions, and thus have \bgb{} values below the average for BL~Lacs.  
 
@@ -371,13 +380,7 @@ Two BL~Lacs with low variability (C.~Dermer, priv. comm.) have been identified w
 
 We analyze the correlation between clustering amplitude and variability by using data from the 3FGL sample \citep{ack15}. Variability is defined from long-term observations of the gamma-ray flux of blazars measured with the {\it Fermi} satellite over an energy range of 100~MeV to 300~GeV. From this data, the variability index \tsvar{} is calculated as the sum of $2\times\log{\mathcal{L}}$, where $\mathcal{L}$ is the likelihood of a difference between the four-year light curves (binned on monthly timescales) and a constant flux. Since \tsvar{} is distributed as a $\chi^2$ function with $N=47$ degrees of freedom, a source is defined as variable at the 99\% confidence level if \tsvar{}$\geq72.44$.
 
-We plot clustering amplitude as a function of variability in Figure~\ref{fig:variability}. While the overall correlation is weak, there is a hint of a trend for the most variable objects; the mean value of \bgb{} for blazars with \tsvar$>72.44$ is $XX$, as compared to $YY$ for the non-variable blazars. In addition, the eight blazars with the highest levels of variability all have positive clustering amplitudes, indicating richer environments with none found in relative voids. 
-
-\begin{figure}
-\includegraphics[width=3.5in]{figures/variability.pdf}
-\caption{Variability \tsvar{} as a function of clustering amplitude \bgb{}. The horizontal green line shows the 99\% confidence limit for a variable source; all blazars above this line are considered variable at gamma-ray energies. 
-\label{fig:variability}}
-\end{figure}
+We plot clustering amplitude as a function of variability in Figure~\ref{fig:variability}. While the overall correlation is weak, there is a hint of a trend for the most variable objects; the mean value of \bgb{} for blazars with \tsvar$>72.44$ is {\note $XX$}, as compared to {\note $YY$} for the non-variable blazars. In addition, the eight blazars with the highest levels of variability all have positive clustering amplitudes, indicating richer environments with none found in relative voids. 
 
 %%%%%%%%%%%%
 %%% CONCLUSIONS
@@ -392,7 +395,7 @@ We have computed the clustering amplitude for a sample of 757~blazars, the large
 %%%%%%%%%%%%
 
 \acknowledgments
-Funding for SDSS-III has been provided by the Alfred P. Sloan Foundation, the Participating Institutions, the National Science Foundation, and the U.S. Department of Energy Office of Science. The SDSS-III web site is http://www.sdss3.org/.
+Funding for SDSS-III has been provided by the Alfred P. Sloan Foundation, the Participating Institutions, the National Science Foundation, and the U.S. Department of Energy Office of Science. The SDSS-III web site is \url{http://www.sdss3.org/}.
 
 SDSS-III is managed by the Astrophysical Research Consortium for the Participating Institutions of the SDSS-III Collaboration including the University of Arizona, the Brazilian Participation Group, Brookhaven National Laboratory, University of Cambridge, Carnegie Mellon University, University of Florida, the French Participation Group, the German Participation Group, Harvard University, the Instituto de Astrofisica de Canarias, the Michigan State/Notre Dame/JINA Participation Group, Johns Hopkins University, Lawrence Berkeley National Laboratory, Max Planck Institute for Astrophysics, Max Planck Institute for Extraterrestrial Physics, New Mexico State University, New York University, Ohio State University, Pennsylvania State University, University of Portsmouth, Princeton University, the Spanish Participation Group, University of Tokyo, University of Utah, Vanderbilt University, University of Virginia, University of Washington, and Yale University.
 \\
@@ -403,6 +406,6 @@ SDSS-III is managed by the Astrophysical Research Consortium for the Participati
 %%% BIBLIOGRAPHY
 %%%%%%%%%%%%
 
-\bibliography{blazar_refs,kwrefs}
+\bibliography{kwrefs}
 
 \end{document}

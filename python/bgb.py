@@ -10,7 +10,9 @@ from astropy.table import Table
 from scipy import integrate
 
 from matplotlib import pyplot as plt
-plt.ion()
+
+import warnings 
+warnings.filterwarnings("ignore",category=RuntimeWarning,append=True)
 
 # Default cosmology for final paper should be WMAP9
 c = WMAP7

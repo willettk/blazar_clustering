@@ -1,16 +1,25 @@
+from __future__ import division
+
 from astropy.io import fits
 from astropy import units as u
+from astroML.plotting import hist as histML
+from matplotlib import pyplot as plt
+from matplotlib import cm
 
 import numpy as np
-
-from matplotlib import pyplot as plt
-
 import bgb
 
-def plot_blazar_sequence():
+fits_path = "../fits"
+paper_path = "../paper"
 
-    blazar_dir = '/Users/willettk/Astronomy/Research/blazars'
-    all_blazars = fits.getdata('%s/fits/meyer_bz_allseds.fits' % blazar_dir,ext=1)
+def get_data():
+
+    # Plot the peak frequency vs. peak luminosity for the blazar sequence,
+    # distinguishing points by both redshift and clustering strength (B_gB)
+
+    # Based on Figure 4 in Meyer et al. (2011)
+
+    all_blazars = fits.getdata('{0}/meyer_bz_allseds.fits'.format(fits_path),1)
     
     lowz = 0.043    # Redshift at which angular size of 10 arcmin = 500 kpc
     highz = 0.75    # Redshift at which an M* galaxy reaches the SDSS completeness limit
@@ -23,237 +32,163 @@ def plot_blazar_sequence():
         except ValueError:
             z = blazar['z']
         ztemp.append(z)
-    zarr = np.array(ztemp)
+    _zarr = np.array(ztemp)
     
-    # Limit blazars to redshift range and matches to Meyer+11
-    redshift_limits = (zarr > lowz) & (zarr < highz)
+    # Include only blazars with redshifts in SDSS completeness limit
+    redshift_limits = (_zarr > lowz) & (_zarr < highz)
+    # Include only blazars in the "trusted extended" or "unknown extended" categories of Meyer+11
     blazar_type_limits = (all_blazars['sed_code'] == 'Uex') | (all_blazars['sed_code'] == 'Tex')
+    # Include only blazars that had a sufficient number of galaxies in SDSS to estimate environment
     counting_limits = (all_blazars['n500_cmag'] >= neighbors) & (all_blazars['bg'] > 0)
 
-    ind = redshift_limits & blazar_type_limits
-    b = all_blazars[ind]
+    b = all_blazars[redshift_limits & blazar_type_limits]
+    zarr = _zarr[redshift_limits & blazar_type_limits]
+
     
-    # Sort blazars by overall type
-    bllac = (b['btype'] == 'BLLac') | (b['btype'] == 'Plotkin_blazar') | (b['btype'] == 'HBL') | (b['btype'] == 'lBLLac')
-    fsrq = (b['btype'] == 'FSRQ')
-    uncertain = (b['btype'] == 'BLLac_candidate') | (b['btype'] == 'blazar_uncertain') | (b['btype'] == 'Blazar')
-    
-    # Run bgb.py on only the Meyer+11 sample
+    # Compute spatial clustering amplitude for the sample
+
     bmeyer,bmeyer_err = [],[]
     for blazar,z in zip(b,zarr):
         bgb_val,bgb_err= bgb.bgb(blazar['n500_cmag'], blazar['bg'], blazar['fieldsize']*u.arcsec, z, blazar['cmag'], lf = 'dr6ages')
         bmeyer.append(bgb_val.value)
         bmeyer_err.append(bgb_err.value)
 
+    return bmeyer,b,zarr
+
+def plot_blazar_sequence(bgb_data,bdata,zarr,savefig=False):
+
     # Axis limits for the plot
-    bmin = -500.
-    bmax = 1500.
     
     leftx = 0.12
     rightx = 0.20
     yheight = 0.80
     xwidth = 1. - leftx - rightx
-    xsize = 8
+    xsize = 12
     ysize = xsize * xwidth / yheight
-    fig = plt.figure(1,(xsize,ysize))
-    fig.clf()
+    fig = plt.figure(figsize=(xsize,ysize))
     ax = fig.add_subplot(111,position=[0.12,0.10,xwidth,yheight])
 
-    # Set colormap for the symbols
-
-    cmap = plt.cm.get_cmap('jet')
-    
     # Plot the blazars on the nu_peak vs. peak luminosity plot. Color = redshift, size = B_gB
     
-    nupeak = np.array(b['nupeak'],dtype=float)
-    lpeak = np.array(b['lpeak'],dtype=float)
+    nupeak = np.array(bdata['nupeak'],dtype=float)
+    lpeak = np.array(bdata['lpeak'],dtype=float)
 
-    sizearr = (np.array(bmeyer) - np.min(bmeyer)) / 100.
+    sizescale = 100. / (max(bgb_data) - min(bgb_data))
+    minsize = 5.
 
-    sc = ax.scatter(nupeak[bllac],lpeak[bllac],marker='o',label='BL Lac',c = zarr[bllac],s=sizearr[bllac],cmap=cmap,vmin=0,vmax=0.75)
-    ax.scatter(nupeak[fsrq],lpeak[fsrq],marker='s',label='FSRQ',c = zarr[fsrq],s=sizearr[fsrq],cmap=cmap,vmin=0,vmax=0.75)
-    ax.scatter(nupeak[uncertain],lpeak[uncertain],marker='+',label='Uncertain',c = zarr[uncertain],s=sizearr[uncertain],cmap=cmap,vmin=0,vmax=0.75)
+    smin = 10
+    smax = 140
+    bmin = -500
+    bmax = 1000
 
-    ax.set_xlabel(r'$\log(\nu_{\rm peak})$ [Hz]',fontsize=16)
-    ax.set_ylabel(r'$\log(\nu {\rm L}_\nu$) [erg s$^{-1}$]',fontsize=16)
+    def size_bgb(x):
+        shifted = x - bmin
+        stemp = (shifted * (smax - smin) / (bmax - bmin)) + smin
+        return stemp
 
-    ax.set_xlim(12,17)
-    ax.set_ylim(43.5,47)
+    sizearr = size_bgb(np.array(bgb_data))
 
-    ax.legend(scatterpoints=2)
+    def bscatter(axis,index,marker='o',label='BL Lac',vmin=0,vmax=0.75):
+        sc = axis.scatter(nupeak[index],lpeak[index], 
+                        marker=marker, label=label, 
+                        c = zarr[index], s=sizearr[index],  
+                        cmap = cm.jet,
+                        vmin=vmin, vmax=vmax)
 
-    position=fig.add_axes([0.82,0.45,0.05,0.40])
-    cb = plt.colorbar(sc,cax = position, orientation='vertical')
+        return sc
+
+    # Categorize blazars by spectral type
+    bllac = (bdata['btype'] == 'BLLac') | (bdata['btype'] == 'Plotkin_blazar') | (bdata['btype'] == 'HBL') | (bdata['btype'] == 'lBLLac')
+    fsrq = (bdata['btype'] == 'FSRQ')
+    uncertain = (bdata['btype'] == 'BLLac_candidate') | (bdata['btype'] == 'blazar_uncertain') | (bdata['btype'] == 'Blazar')
+    
+    sc_bllac = bscatter(ax,bllac,'o','BL Lac')
+    sc_fsrq = bscatter(ax,fsrq,'s','FSRQ')
+    sc_uncertain = bscatter(ax,uncertain,'+','Uncertain')
+
+    # Add dashed lines indicating the blazar sequence from theoretical predictions of Meyer+11
+
+    # Single-component jet
+    track_a = np.loadtxt("../meyer/track_a.txt")
+    x0,y0 = track_a[-1]
+    dx = track_a[0][0] - track_a[1][0]
+    dy = track_a[0][1] - track_a[1][1]
+    ax.arrow(x0,y0,dx,dy,lw=2,fc='k',ec='k',head_width=0.1)
+
+    # Decelerating jet
+    track_b = np.loadtxt("../meyer/track_b.txt")
+    seg_x = track_b[1:][:,0]
+    seg_y = track_b[1:][:,1]
+    ax.plot(seg_x,seg_y,lw=2,color='k')
+    x0,y0 = track_b[1]
+    dx = track_b[0][0] - track_b[1][0]
+    dy = track_b[0][1] - track_b[1][1]
+    ax.arrow(x0,y0,dx,dy,lw=2,fc='k',ec='k',head_width=0.1)
+
+    ax.set_xlabel(r'$\log(\nu_{\rm peak})$ [Hz]',fontsize=22)
+    ax.set_ylabel(r'$\log(\nu {\rm L}_\nu$) [erg s$^{-1}$]',fontsize=22)
+
+    # Original limits on Figure 4 (Meyer+11)
+
+    ax.set_xlim(12,18)
+    ax.set_ylim(41,48)
+
+    # More sensible limits for the range of our sample
+
+    #ax.set_xlim(12,17)
+    #ax.set_ylim(43.5,47)
+
+    # Set up dummy axis to make an extra legend for the point sizes
+
+    xdummy,ydummy = [0],[0]
+    p1Artist=ax.scatter(xdummy,ydummy,marker='o',color='k',s=size_bgb(-500),label='-500')
+    p2Artist=ax.scatter(xdummy,ydummy,marker='o',color='k',s=size_bgb(0),label='0')
+    p3Artist=ax.scatter(xdummy,ydummy,marker='o',color='k',s=size_bgb(500),label='500')
+    p0Artist=ax.scatter(xdummy,ydummy,marker='o',color='k',s=size_bgb(1000),label='1000')
+    p4Artist=ax.scatter(xdummy,ydummy,marker='o',color='k',s=size_bgb(1500),label='1500')
+
+    m2Artist=ax.scatter(xdummy,ydummy,marker='o',color='b',s=size_bgb(0),label='BL Lac')
+    m3Artist=ax.scatter(xdummy,ydummy,marker='s',color='b',s=size_bgb(0),label='FSRQ')
+    m4Artist=ax.scatter(xdummy,ydummy,marker='+',color='b',s=size_bgb(0),label='Uncertain')
+
+    handles,labels = ax.get_legend_handles_labels()
+
+    # Main legend
+    legend1=ax.legend(handles[8:],labels[8:],scatterpoints=1)
+    # Sizing legend
+    ax.legend(handles[3:8],labels[3:8],scatterpoints=1,bbox_to_anchor=(1.02,0.35),loc=2)
+    plt.gca().add_artist(legend1)
+
+    # Add colorbar for the blazar redshift
+    cb_axis=fig.add_axes([0.82,0.45,0.05,0.40])
+    cb = plt.colorbar(sc_bllac,cax = cb_axis, orientation='vertical')
     cb.set_label('blazar redshift',fontsize=16)
 
-    
-    fig.savefig('%s/paper/figures/bgb_blazarsequence_allseds.pdf' % blazar_dir)
-    #plt.show()
+    if savefig:
+        plt.savefig('{0}/figures/bgb_blazarsequence_allseds.pdf'.format(paper_path))
+    else:
+        plt.show()
 
-    return zarr
+def plot_blazar_sequence_hist(bgb_data,savefig=False):
 
-def idl_junk():
+    # Plot just the distribution of B_gB for the Meyer+11 sample
 
-    '''
-    #fig.savefig('%s/paper/figures/bgb_blazarsequence_allseds.pdf' % blazar_dir)
-    
-    cgloadct, 13
-    minsize = 0.5
-    sizescale = 5.
-    
-    # Overplot tracks from Meyer et al. (2011)
-    
-    readcol, '/Applications/Dexter/meyer_sequence.gif.tracka', xa, ya, format='f,f', /skipline, /silent
-    readcol, '/Applications/Dexter/meyer_sequence.gif.trackb', xb, yb, format='f,f', /skipline, /silent
-    
-    slope = (ya[1] - ya[0]) / (xa[1] - xa[0])
-    intercept = ya[0] - slope * xa[0]
-    
-    ;cgplots, xa, ya, color='black', linestyle=2
-    ;cgplots, xb, yb, color='black', linestyle=2
-    
-    cgplot, b.nupeak, b.lpeak, $
-        background='white', $
-        position=[0.08,0.15,0.30,0.95], $
-        charsize=cs, $
-        charthick = ct, $
-        thick=th, $
-        /nodata, $
-        yr=[43.95,47], /ystyle, $
-        xr=[12,17], /xstyle, $
-        title='BL Lacs', $
-        xtitle='log ('+greek('nu')+'!Ipeak!N) [Hz]', $
-        ytitle='log ('+greek('nu')+'L!I'+greek('nu')+'!N) [erg s!E-1!N]'
-    
-    for j=0,n_elements(bllac) - 1 do begin
-        cgplot, b[bllac[j]].nupeak, b[bllac[j]].lpeak, $
-            /over, $
-            symsize=(bmeyer[bllac[j]] - bmin) / (bmax-bmin) * sizescale + minsize, $
-            color=fix((z[bllac[j]] - min(z)) / (max(z)-min(z)) * 255.), $
-            psym=16
-    endfor
-    
-    cgarrow, (!Y.crange[1] - intercept) / slope, !y.crange[1],(!Y.crange[0] - intercept) / slope, !y.crange[0], color='black', linestyle=2, thick=th,/data,/solid,hsize=hsize
-    cgplots, [15.80,16.47,17.00], [44.24,44.50,44.82], color='black', linestyle=2, thick=th
-    cgarrow, 15.80,44.24, 15.05,44.00,color='black', linestyle=2, thick=th, /data, hsize=hsize,/solid
-    
-    cgplot, b.nupeak, b.lpeak, $
-        background='white', $
-        position=[0.37,0.15,0.58,0.95], $
-        charsize=cs, $
-        charthick = ct, $
-        thick=th, $
-        /nodata, $
-        yr=[43.95,47], /ystyle, $
-        xr=[12,17], /xstyle, $
-        title='FSRQs', $
-        xtitle='log ('+greek('nu')+'!Ipeak!N) [Hz]'
-    
-    for j=0,n_elements(fsrq) - 1 do begin
-        cgplot, b[fsrq[j]].nupeak, b[fsrq[j]].lpeak, $
-            /over, $
-            symsize=(bmeyer[fsrq[j]] - bmin) / (bmax-bmin) * sizescale + minsize, $
-            color=fix((z[fsrq[j]] - min(z)) / (max(z)-min(z)) * 255.), $
-            psym=15
-    endfor
-    
-    cgarrow, (!Y.crange[1] - intercept) / slope, !y.crange[1],(!Y.crange[0] - intercept) / slope, !y.crange[0], color='black', linestyle=2, thick=th,/data,/solid,hsize=hsize
-    cgplots, [15.80,16.47,17.00], [44.24,44.50,44.82], color='black', linestyle=2, thick=th
-    cgarrow, 15.80,44.24, 15.05,44.00,color='black', linestyle=2, thick=th, /data, hsize=hsize,/solid
-    
-    cgplot, b.nupeak, b.lpeak, $
-        background='white', $
-        position=[0.62,0.15,0.80,0.95], $
-        charsize=cs, $
-        charthick = ct, $
-        thick=th, $
-        /nodata, $
-        yr=[43.95,47], /ystyle, $
-        xr=[12,17], /xstyle, $
-        title='Uncertain blazars', $
-        xtitle='log ('+greek('nu')+'!Ipeak!N) [Hz]'
-    
-    for j=0,n_elements(uncertain) - 1 do begin
-        cgplot, b[uncertain[j]].nupeak, b[uncertain[j]].lpeak, $
-            /over, $
-            symsize=(bmeyer[uncertain[j]] - bmin) / (bmax-bmin) * sizescale + minsize, $
-            color=fix((z[uncertain[j]] - min(z)) / (max(z)-min(z)) * 255.), $
-            psym=14
-    
-    
-    
-    al_legend, /top,/left, psym=[16,15,34], ['BL Lac','FSRQ','Uncertain'], charsize=labelsize*1.4, symsize=2, outline_color='black', textcolor='black', colors='black'
-    cgcolorbar, position=[0.9,0.5,0.95,0.95], range=[min(z),max(z)], /vert, title='blazar redshift', color='black'
-    
-    s1 = (-500 - bmin) / (bmax-bmin) * sizescale + minsize
-    s2 = (0 - bmin) / (bmax-bmin) * sizescale + minsize
-    s3 = (500 - bmin) / (bmax-bmin) * sizescale + minsize
-    s4 = (1000 - bmin) / (bmax-bmin) * sizescale + minsize
-    al_legend, position=[0.84,0.35], psym=16, ['-500','0','500','1000'], charsize=cs, symsize=[s1,s2,s3,s4],/normal,spacing = 3, outline_color='black', textcolor='black', colors='black'
-    cgtext, /normal, 0.895, 0.37, 'B!IgB!N',charsize=cs
-    
-    # Kluges to make sure lines don't run off the edge of my truncated plot
-    
-    cgarrow, (!Y.crange[1] - intercept) / slope, !y.crange[1],(!Y.crange[0] - intercept) / slope, !y.crange[0], color='black', linestyle=2, thick=th,/data,/solid,hsize=hsize
-    cgplots, [15.80,16.47,17.00], [44.24,44.50,44.82], color='black', linestyle=2, thick=th
-    cgarrow, 15.80,44.24, 15.05,44.00,color='black', linestyle=2, thick=th, /data, hsize=hsize,/solid
-    
-    #cgtext, 13.7, 46.7, /data, 'Single-component jet', charsize=labelsize
-    #cgtext, 15.85, 44.2, /data, 'Decelerating jets', charsize=labelsize
-    
-    '''
-    
-    
-    '''
-    # Split between low and high-peaked environments?
-    
-    lowpeak = where(b.nupeak lt 14.5)
-    highpeak = where(b.nupeak gt 14.5)
-    highpower = where(b.lpeak gt 45.0)
-    lowpower = where(b.lpeak le 45.0)
-    
-    print,''
-    print,'B_gB lowpeak: ',mean(bmeyer[lowpeak]),stddev(bmeyer[lowpeak]), median(bmeyer[lowpeak])
-    print,'B_gB highpeak: ',mean(bmeyer[highpeak]),stddev(bmeyer[highpeak]), median(bmeyer[highpeak])
-    print,''
-    print,'redshift lowpeak: ',mean(z[lowpeak]),stddev(z[lowpeak])
-    print,'redshift highpeak: ',mean(z[highpeak]),stddev(z[highpeak])
-    print,''
-    kstwo, bmeyer[lowpeak],bmeyer[highpeak],d_bgb,prob_bgb
-    print,'K-S BgB, split by peak:', prob_bgb, probgauss(prob_bgb)        # Probability of B_gB being drawn from the same distribution is 0.3% (3 sigma)
-    kstwo, z[lowpeak],z[highpeak],d_z,prob_z            # Probability of redshift being drawn from the same distribution is 2.4% (2.3 sigma)
-    print,'K-S redshift, split by peak:', prob_z, probgauss(prob_z)
-    kstwo, b[lowpeak].lpeak,b[highpeak].lpeak,d_lpeak,prob_lpeak            # Probability of redshift being drawn from the same distribution is 2.4% (2.3 sigma)
-    print,'K-S L_peak, split by peak:', prob_lpeak, probgauss(prob_lpeak)
-    kstwo, bmeyer[lowpower],bmeyer[highpower],d_lpower,prob_lpower            # Probability of redshift being drawn from the same distribution is 2.4% (2.3 sigma)
-    print,'K-S L_peak, split by power:', prob_lpower, probgauss(prob_lpower)
-    
-    # Blazar type in each
-    #print,'High peaked'
-    print,''
-    
-    #stop
-    #
-    ## Correlations
-    #
-    #mbh_flt = float(b.mass_bh)
-    #mbhind = where(mbh_flt ne 0.)
-    #lext_flt = float(b.lext)
-    #lextind = where(lext_flt ne 0.)
-    #
-    #!p.multi=[0,2,2]
-    #cgplot,bmeyer,b.lpeak,psym=16,xr=[-1000,1500],yr=[42,47],title='L!Ipeak!N', charsize=2
-    #cgplot,bmeyer,b.nupeak,psym=16,xr=[-1000,1500],yr=[12,17],title=greek('nu')+'!Ipeak!N', charsize=2
-    #cgplot,bmeyer,b.mass_bh,psym=16,xr=[-1000,1500],yr=[6,10],title='M!IBH!N', charsize=2
-    #cgplot,bmeyer,b.lext,psym=16,xr=[-1000,1500],yr=[37,44],title='L!Iext!N', charsize=2
-    #
-    #print,'Bgb vs lpeak:   ',string(correlate(bmeyer,float(b.lpeak)),format='(f7.4)')
-    #print,'Bgb vs nupeak:  ',string(correlate(bmeyer,float(b.nupeak)),format='(f7.4)')
-    #print,'Bgb vs BH mass: ',string(correlate(bmeyer[mbhind],mbh_flt[mbhind]),format='(f7.4)')
-    #print,'Bgb vs L_ext:   ',string(correlate(bmeyer[lextind],lext_flt[lextind]),format='(f7.4)')
-    '''
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    histML(bgb_data, bins=25, ax=ax, histtype='step', color='b',weights=np.zeros_like(bgb_data) + 1./len(bgb_data))
 
+    ax.set_title('Matched SDSS and (TEX+UEX) samples')
+    ax.set_xlabel(r'$B_{gB}$',fontsize=24)
+    ax.set_ylabel('Count',fontsize=16)
+    if savefig:
+        fig.savefig('{0}/figures/bgb_blazarsequence_hist.pdf'.format(paper_path))
+    else:
+        plt.show()
+
+
+    return None
 
 if __name__ == "__main__":
-    plt.ion()
-    plot_blazar_sequence()
+    bgb_data,bdata,zarr = get_data()
+    #plot_blazar_sequence(bgb_data,bdata,zarr,savefig=True)
+    plot_blazar_sequence_hist(bgb_data,savefig=True)

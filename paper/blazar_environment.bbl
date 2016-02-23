@@ -2,35 +2,35 @@
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
 \bibitem[{{Ackermann} {et~al.}(2015){Ackermann}, {Ajello}, {Atwood}, {Baldini},
-  {Ballet}, {Barbiellini}, {Bastieri}, {Gonzalez}, {Bellazzini}, {Bissaldi},
-  {Blandford}, {Bloom}, {Bonino}, {Bottacini}, {Brandt}, {Bregeon}, {Britto},
-  {Bruel}, {Buehler}, {Buson}, {Caliandro}, {Cameron}, {Caragiulo}, {Caraveo},
-  {Casandjian}, {Cavazzuti}, {Cecchi}, {Charles}, {Chekhtman}, {Cheung},
-  {Chiang}, {Chiaro}, {Ciprini}, {Claus}, {Cohen-Tanugi}, {Cominsky}, {Conrad},
-  {Cutini}, {D'Abrusco}, {D'Ammando}, {Angelis}, {Desiante}, {Digel}, {Venere},
-  {Drell}, {Favuzzi}, {Fegan}, {Ferrara}, {Finke}, {Focke}, {Franckowiak},
-  {Fuhrmann}, {Furniss}, {Fusco}, {Gargano}, {Gasparrini}, {Giglietto},
-  {Giommi}, {Giordano}, {Giroletti}, {Glanzman}, {Godfrey}, {Grenier}, {Grove},
-  {Guiriec}, {Hewitt}, {Hill}, {Horan}, {J'ohannesson}, {Johnson}, {Johnson},
-  {Kataoka}, {Kuss}, {Mura}, {Larsson}, {Latronico}, {Leto}, {Li}, {Li},
-  {Longo}, {Loparco}, {Lott}, {Lovellette}, {Lubrano}, {Madejski}, {Mayer},
-  {Mazziotta}, {McEnery}, {Michelson}, {Mizuno}, {Moiseev}, {Monzani},
-  {Morselli}, {Moskalenko}, {Murgia}, {Nuss}, {Ohno}, {Ohsugi}, {Ojha},
-  {Omodei}, {Orienti}, {Orlando}, {Paggi}, {Paneque}, {Perkins},
-  {Pesce-Rollins}, {Piron}, {Pivato}, {Porter}, {Rain`o}, {Rando}, {Razzano},
-  {Razzaque}, {Reimer}, {Reimer}, {Romani}, {Salvetti}, {Schaal}, {Schinzel},
-  {Schulz}, {Sgr`o}, {Siskind}, {Sokolovsky}, {Spada}, {Spandre}, {Spinelli},
-  {Stawarz}, {Suson}, {Takahashi}, {Takahashi}, {Tanaka}, {Thayer}, {Thayer},
-  {Tibaldo}, {Torres}, {Torresi}, {Tosti}, {Troja}, {Uchiyama}, {Vianello},
-  {Winer}, {Wood}, \& {Zimmer}}]{ack15}
-{Ackermann}, M., {Ajello}, M., {Atwood}, W., {et~al.} 2015, ArXiv e-prints,
-  arXiv:1501.06054
+  {Ballet}, {Barbiellini}, {Bastieri}, {Becerra Gonzalez}, {Bellazzini},
+  {Bissaldi}, {Blandford}, {Bloom}, {Bonino}, {Bottacini}, {Brandt}, {Bregeon},
+  {Britto}, {Bruel}, {Buehler}, {Buson}, {Caliandro}, {Cameron}, {Caragiulo},
+  {Caraveo}, {Carpenter}, {Casandjian}, {Cavazzuti}, {Cecchi}, {Charles},
+  {Chekhtman}, {Cheung}, {Chiang}, {Chiaro}, {Ciprini}, {Claus},
+  {Cohen-Tanugi}, {Cominsky}, {Conrad}, {Cutini}, {D'Abrusco}, {D'Ammando}, {de
+  Angelis}, {Desiante}, {Digel}, {Di Venere}, {Drell}, {Favuzzi}, {Fegan},
+  {Ferrara}, {Finke}, {Focke}, {Franckowiak}, {Fuhrmann}, {Fukazawa},
+  {Furniss}, {Fusco}, {Gargano}, {Gasparrini}, {Giglietto}, {Giommi},
+  {Giordano}, {Giroletti}, {Glanzman}, {Godfrey}, {Grenier}, {Grove},
+  {Guiriec}, {Hewitt}, {Hill}, {Horan}, {Itoh}, {J{\'o}hannesson}, {Johnson},
+  {Johnson}, {Kataoka}, {Kawano}, {Krauss}, {Kuss}, {La Mura}, {Larsson},
+  {Latronico}, {Leto}, {Li}, {Li}, {Longo}, {Loparco}, {Lott}, {Lovellette},
+  {Lubrano}, {Madejski}, {Mayer}, {Mazziotta}, {McEnery}, {Michelson},
+  {Mizuno}, {Moiseev}, {Monzani}, {Morselli}, {Moskalenko}, {Murgia}, {Nuss},
+  {Ohno}, {Ohsugi}, {Ojha}, {Omodei}, {Orienti}, {Orlando}, {Paggi}, {Paneque},
+  {Perkins}, {Pesce-Rollins}, {Piron}, {Pivato}, {Porter}, {Rain{\`o}},
+  {Rando}, {Razzano}, {Razzaque}, {Reimer}, {Reimer}, {Romani}, {Salvetti},
+  {Schaal}, {Schinzel}, {Schulz}, {Sgr{\`o}}, {Siskind}, {Sokolovsky}, {Spada},
+  {Spandre}, {Spinelli}, {Stawarz}, {Suson}, {Takahashi}, {Takahashi},
+  {Tanaka}, {Thayer}, {Thayer}, {Tibaldo}, {Torres}, {Torresi}, {Tosti},
+  {Troja}, {Uchiyama}, {Vianello}, {Winer}, {Wood}, \& {Zimmer}}]{ack15}
+{Ackermann}, M., {Ajello}, M., {Atwood}, W.~B., {et~al.} 2015, \apj, 810, 14
 
-\bibitem[{{Ahn} {et~al.}(2013){Ahn}, {Alexandroff}, {Allende Prieto}, {Anders},
+\bibitem[{{Ahn} {et~al.}(2014){Ahn}, {Alexandroff}, {Allende Prieto}, {Anders},
   {Anderson}, {Anderton}, {Andrews}, {Aubourg}, {Bailey}, {Bastien}, \&
-  et~al.}]{ahn13}
-{Ahn}, C.~P., {Alexandroff}, R., {Allende Prieto}, C., {et~al.} 2013, ArXiv
-  e-prints, arXiv:1307.7735
+  et~al.}]{ahn14}
+{Ahn}, C.~P., {Alexandroff}, R., {Allende Prieto}, C., {et~al.} 2014, \apjs,
+  211, 17
 
 \bibitem[{{Chen} {et~al.}(2009){Chen}, {Gu}, \& {Cao}}]{che09a}
 {Chen}, Z., {Gu}, M., \& {Cao}, X. 2009, \mnras, 397, 1713
@@ -52,10 +52,10 @@
 {Ellingson}, E., {Yee}, H.~K.~C., {Green}, R.~F., \& {Kinman}, T.~D. 1989, \aj,
   97, 1539
 
-\bibitem[{{Furniss} {et~al.}(2014){Furniss}, {Sutter}, {Primack}, \&
-  {Dominguez}}]{fur14}
-{Furniss}, A., {Sutter}, P.~M., {Primack}, J.~R., \& {Dominguez}, A. 2014,
-  ArXiv e-prints, arXiv:1407.6370
+\bibitem[{{Furniss} {et~al.}(2015){Furniss}, {Sutter}, {Primack}, \&
+  {Dom{\'{\i}}nguez}}]{fur15}
+{Furniss}, A., {Sutter}, P.~M., {Primack}, J.~R., \& {Dom{\'{\i}}nguez}, A.
+  2015, \mnras, 446, 2267
 
 \bibitem[{{Galametz} {et~al.}(2012){Galametz}, {Stern}, {De Breuck}, {Hatch},
   {Mayo}, {Miley}, {Rettura}, {Seymour}, {Stanford}, \& {Vernet}}]{gal12}
@@ -108,8 +108,7 @@
 
 \bibitem[{{Malavasi} {et~al.}(2015){Malavasi}, {Bardelli}, {Ciliegi}, {Ilbert},
   {Pozzetti}, \& {Zucca}}]{mal15}
-{Malavasi}, N., {Bardelli}, S., {Ciliegi}, P., {et~al.} 2015, ArXiv e-prints,
-  arXiv:1501.03503
+{Malavasi}, N., {Bardelli}, S., {Ciliegi}, P., {et~al.} 2015, \aap, 576, A101
 
 \bibitem[{{Massaro} {et~al.}(2009){Massaro}, {Giommi}, {Leto}, {Marchegiani},
   {Maselli}, {Perri}, {Piranomonte}, \& {Sclavi}}]{mas09}
@@ -131,7 +130,7 @@
 {Muzzin}, A., {Yee}, H.~K.~C., {Hall}, P.~B., \& {Lin}, H. 2007, \apj, 663, 150
 
 \bibitem[{{Pace} \& {Salim}(2014)}]{pac14}
-{Pace}, C., \& {Salim}, S. 2014, ArXiv e-prints, arXiv:1403.0003
+{Pace}, C., \& {Salim}, S. 2014, \apj, 785, 66
 
 \bibitem[{{Padovani}(2007)}]{pad07}
 {Padovani}, P. 2007, \apss, 309, 63
@@ -169,8 +168,8 @@
 \bibitem[{{Urry} \& {Padovani}(1995)}]{urr95}
 {Urry}, C.~M., \& {Padovani}, P. 1995, \pasp, 107, 803
 
-\bibitem[{Villarroel \& Korn(2014)}]{vil14a}
-Villarroel, B., \& Korn, A.~J. 2014, Nat Phys, advance online publication,
+\bibitem[{{Villarroel} \& {Korn}(2014)}]{vil14a}
+{Villarroel}, B., \& {Korn}, A.~J. 2014, Nature Physics, 10, 417
 
 \bibitem[{{Wing} \& {Blanton}(2011)}]{win11}
 {Wing}, J.~D., \& {Blanton}, E.~L. 2011, \aj, 141, 88
