@@ -49,7 +49,7 @@ def get_data():
 
     bmeyer,bmeyer_err = [],[]
     for blazar,z in zip(b,zarr):
-        bgb_val,bgb_err= bgb.bgb(blazar['n500_cmag'], blazar['bg'], blazar['fieldsize']*u.arcsec, z, blazar['cmag'], lf = 'dr6ages')
+        bgb_val,bgb_err= bgb.get_bgb(blazar['n500_cmag'], blazar['bg'], blazar['fieldsize']*u.arcsec, z, blazar['cmag'], lf = 'dr6ages')
         bmeyer.append(bgb_val.value)
         bmeyer_err.append(bgb_err.value)
 
@@ -190,5 +190,5 @@ def plot_blazar_sequence_hist(bgb_data,savefig=False):
 
 if __name__ == "__main__":
     bgb_data,bdata,zarr = get_data()
-    #plot_blazar_sequence(bgb_data,bdata,zarr,savefig=True)
+    plot_blazar_sequence(bgb_data,bdata,zarr,savefig=True)
     plot_blazar_sequence_hist(bgb_data,savefig=True)
