@@ -499,6 +499,8 @@ def bzcat5(nmin=10):
     col_bgb = []
     col_bgb_err = []
 
+    noncircarr = []
+
     from datetime import datetime as dt
 
     print dt.today().strftime("%H:%M:%S.%f")
@@ -531,7 +533,8 @@ def bzcat5(nmin=10):
 
             else:
                 noncirc += 1
-                #print '{0} is non-circular'.format(b)
+                noncircarr.append(b)
+                #print '{0} has non-circular distribution of neighbors.'.format(b)
         else:
             bad += 1
             #print '{0} had only {1:d} galaxies within r_proj = 500 kpc'.format(b,nt)
@@ -546,6 +549,10 @@ def bzcat5(nmin=10):
     btable = Table([col_bname,col_btype,col_ra,col_dec,col_catalogue,col_nt,col_nb,col_z,col_field_size,col_counting_mag,col_bgb,col_bgb_err], names=('bname','btype','ra','dec','catalogue','nt','nb','z','field_size','counting_mag','bgb','bgb_err'), meta={'name': 'All blazars in SDSS'})
 
     #btable.write('../bzcat5/bzcat5_bgb.fits',format='fits')
+
+    print "Non-circular distributions of neighbors for:"
+    for x in noncircarr:
+        print x
 
     return btable
 
