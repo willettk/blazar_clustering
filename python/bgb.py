@@ -18,7 +18,7 @@ warnings.filterwarnings("ignore",category=RuntimeWarning,append=True)
 c = WMAP7
 
 blazardir = '/Users/willettk/Astronomy/Research/blazars'
-btype_dict = {'bllac':'BL Lac','fsrq':'FSRQ','uncertain':'Blazar (uncertain type)','candidate':'BL Lac candidate'}
+btype_dict = {'bllac':'BL Lac','fsrq':'FSRQ','uncertain':'Blazar (uncertain type)','candidate':'BL Lac candidate','bllac_gal':'BL Lac (galaxy dominated)'}
 
 def schechter_mag(phi_star,mr_star,alpha,m):
 
@@ -104,24 +104,24 @@ def get_luminosity_function(lf,z):
 
     return phi_star, Mr_star, alpha
 
-def bgb(nt, nb, fieldsize, z, countingmag, lf = 'dr6ages', verbose=False):
+def get_bgb(nt, nb, field_size, z, counting_mag, lf = 'dr6ages', verbose=False):
 
     # Angular covariance amplitude (Yee & Green 1987)
     
     gamma = 1.77			# Power-law index of galaxy-galaxy covariance relationship
-    theta = fieldsize.to(u.radian)
+    theta = field_size.to(u.radian)
     A_gB = (nt - nb) / nb * (3. - gamma) / 2. * theta**(gamma-1)
     
     i_gamma = 3.87
     da = c.angular_diameter_distance(z)
     
     if lf == 'ramosalmeida':
-        lowerlim = countingmag - 1 
+        lowerlim = counting_mag - 1 
     else:
         lowerlim = -np.inf
 
     phi_star, Mr_star, alpha = get_luminosity_function(lf,z)
-    psi,psi_err = integrate.quad(lambda m: schechter_mag(phi_star,Mr_star,alpha,m), lowerlim, countingmag)
+    psi,psi_err = integrate.quad(lambda m: schechter_mag(phi_star,Mr_star,alpha,m), lowerlim, counting_mag)
     
     n_net = (nt - nb)
     a_theta = np.pi * theta**2
@@ -149,7 +149,7 @@ def bgb(nt, nb, fieldsize, z, countingmag, lf = 'dr6ages', verbose=False):
         print 'theta: %.2e' % theta.value
         print 'a_theta: %.2e' % a_theta.value
         print 'i_gamma: %.2f' % i_gamma
-        print 'counting mag: %.2f\n' % countingmag
+        print 'counting mag: %.2f\n' % counting_mag
         print 'phi_star: %.3e' % phi_star
         print 'Mr_star: %.3f' % Mr_star
         print 'alpha: %.3f\n' % alpha
@@ -163,8 +163,8 @@ def bstats(data):
     z = data['z'][0]
 
     # Angular size of the field to count neighbors
-    fieldsize = c.arcsec_per_kpc_comoving(z) * 500. * u.kpc        # arcsec per 500 kpc at redshift z
-    fieldsize_arcmin = fieldsize.to(u.arcmin)
+    field_size = c.arcsec_per_kpc_comoving(z) * 500. * u.kpc        # arcsec per 500 kpc at redshift z
+    field_size_arcmin = field_size.to(u.arcmin)
     
     # Limit on magnitude down to which a galaxy is counted as a neighbor
     Mr_star = -21.1837		# Blanton et al. (2003) - shouldn't this change with distance?
@@ -174,12 +174,12 @@ def bstats(data):
     lumdist = c.luminosity_distance(z)
     sdss_lim_abs = sdss_lim - 5*np.log10(lumdist.to(u.pc).value) + 5
     
-    countingmag = min(sdss_lim_abs,abs_mstar)
+    counting_mag = min(sdss_lim_abs,abs_mstar)
         
-    # Count number of galaxies within fieldsize down to counting mag
+    # Count number of galaxies within field_size down to counting mag
     nt = np.sum(
-                (data['sep_arcmin'] <= fieldsize_arcmin.value) & 
-                (data['absmagR'] <= countingmag)
+                (data['sep_arcmin'] <= field_size_arcmin.value) & 
+                (data['absmagR'] <= counting_mag)
                 )
 
     # For galaxies above a redshift cut, use counts from an equal-sized external radius
@@ -191,9 +191,9 @@ def bstats(data):
         # Results should check that I'm not near the edge of SDSS for any of these ...
 
         nb = np.sum(
-                    (data['sep_arcmin'] > fieldsize_arcmin.value) & 
-                    (data['sep_arcmin'] <= fieldsize_arcmin.value * np.sqrt(2.)) & 
-                    (data['absmagR'] <= countingmag)
+                    (data['sep_arcmin'] > field_size_arcmin.value) & 
+                    (data['sep_arcmin'] <= field_size_arcmin.value * np.sqrt(2.)) & 
+                    (data['absmagR'] <= counting_mag)
                     )
 
     # Otherwise, use galaxies from separate control field centered 1 degree to north
@@ -206,8 +206,8 @@ def bstats(data):
         cdata_match = cdata[cdata['bname']==data['bname'][0]]
 
         nb = np.sum(
-                    (cdata_match['sep_arcmin'] <= fieldsize_arcmin.value) & 
-                    (cdata_match['absmagR'] <= countingmag)
+                    (cdata_match['sep_arcmin'] <= field_size_arcmin.value) & 
+                    (cdata_match['absmagR'] <= counting_mag)
                     )
 
         '''
@@ -215,7 +215,7 @@ def bstats(data):
         print 'nt = %i, nb = %i' % (nt,nb)
         '''
         
-    return nt, nb, fieldsize, z, countingmag
+    return nt, nb, field_size, z, counting_mag
 
 def load_blazar_data(zcut=True):
 
@@ -227,9 +227,8 @@ def load_blazar_data(zcut=True):
 
     return data
     
-def bgb_blazars():
+def bgb_blazars(data):
 
-    data = load_blazar_data()
     blazars = set(data['bname'])
 
     col_bname = []
@@ -240,8 +239,8 @@ def bgb_blazars():
     col_nt = []
     col_nb = []
     col_z = []
-    col_fieldsize = []
-    col_countingmag = []
+    col_field_size = []
+    col_counting_mag = []
     col_bgb = []
     col_bgb_err = []
 
@@ -252,9 +251,9 @@ def bgb_blazars():
     
         if ngals >= 10:
 
-            nt,nb,fieldsize,z,countingmag = bstats(data[name_match])
-            b_val,b_err = bgb(nt, nb, fieldsize, z, countingmag, lf = 'dr6ages')
-            #bd[b] = {'nt':nt,'nb':nb,'fieldsize':fieldsize,'z':z,'countingmag':countingmag,'bgb':b_val,'bgb_err':b_err}
+            nt,nb,field_size,z,counting_mag = bstats(data[name_match])
+            b_val,b_err = get_bgb(nt, nb, field_size, z, counting_mag, lf = 'dr6ages')
+            #bd[b] = {'nt':nt,'nb':nb,'field_size':field_size,'z':z,'counting_mag':counting_mag,'bgb':b_val,'bgb_err':b_err}
             
             col_bname.append(b)
             col_btype.append((data[name_match][0]['btype']).strip())
@@ -264,8 +263,8 @@ def bgb_blazars():
             col_nt.append(nt)
             col_nb.append(nb)
             col_z.append(z)
-            col_fieldsize.append(fieldsize.value)
-            col_countingmag.append(countingmag)
+            col_field_size.append(field_size.value)
+            col_counting_mag.append(counting_mag)
             col_bgb.append(b_val.value)
             col_bgb_err.append(b_err.value)
 
@@ -275,20 +274,24 @@ def bgb_blazars():
             #print '%s had only %i galaxies within r_proj = 500 kpc' % (b,ngals)
     
     #print good,bad
-
-    btable = Table([col_bname,col_btype,col_ra,col_dec,col_catalogue,col_nt,col_nb,col_z,col_fieldsize,col_countingmag,col_bgb,col_bgb_err], names=('bname','btype','ra','dec','catalogue','nt','nb','z','fieldsize','countingmag','bgb','bgb_err'), meta={'name': 'All blazars in SDSS'})
+    btable = Table([col_bname,col_btype,col_ra,col_dec,col_catalogue,col_nt,col_nb,col_z,col_field_size,col_counting_mag,col_bgb,col_bgb_err], names=('bname','btype','ra','dec','catalogue','nt','nb','z','field_size','counting_mag','bgb','bgb_err'), meta={'name': 'All blazars in SDSS'})
 
     return btable
 
-def plot_zhist(btable):
+def plot_zhist(btable,savefig=False):
 
     fig = plt.figure(1,figsize=(9,7))
     fig.clf()
     ax = fig.add_subplot(111)
     ax.hist(btable['z'],bins=10,range=(0,0.8),histtype='step',lw=3,color='black',label='All blazars')
 
+    color_cycle = ['377EB8', 'E41A1C', '4DAF4A', '984EA3', 'FF7F00'][::-1]
+
     for bt in set(btable['btype']):
-        ax.hist(btable['z'][btable['btype'] == bt],bins=10,range=(0,0.8),histtype='stepfilled',alpha=0.3,label=btype_dict[bt])
+        clr = '#'+color_cycle.pop().lower()
+        #ax.hist(btable['z'][btable['btype'] == bt],bins=10,range=(0,0.8),histtype='stepfilled',alpha=0.3,label=btype_dict[bt])
+        ax.hist(btable['z'][btable['btype'] == bt],bins=10,range=(0,0.8),histtype='step',alpha=1.0,lw=2,label=btype_dict[bt],color=clr)
+        ax.axvline(np.mean(btable['z'][btable['btype'] == bt]),linestyle='--',lw=1,color=clr)
 
     ax.set_xlabel('Redshift',fontsize=20)
     ax.set_ylabel('Count',fontsize=20)
@@ -308,15 +311,18 @@ def plot_zhist(btable):
         label.set_linewidth(1.5)  # the legend line width
         plt.show()
 
-    fig.savefig('%s/paper/figures/blazars_zhist.pdf' % blazardir)
+    if savefig:
+        fig.savefig('%s/paper/figures/blazars_zhist.pdf' % blazardir)
+    else:
+        plt.show()
 
     return None
 
-def plot_bgb_hist(btable):
+def plot_bgb_hist(btable,savefig=False):
 
-    fig,axarr = plt.subplots(2,2,sharex=True,sharey=True,figsize=(8,8),num=1)
+    fig,axarr = plt.subplots(2,3,sharex=True,sharey=True,figsize=(14,8),num=1)
     btypes = set(btable['btype'])
-    print '\nAll blazars: mean B_gB = %i' % np.mean(btable['bgb'])
+    print '\nAll blazars: median B_gB = %i' % np.median(btable['bgb'])
 
     color_cycle = ['377EB8', 'E41A1C', '4DAF4A', '984EA3', 'FF7F00'][::-1]
 
@@ -326,10 +332,10 @@ def plot_bgb_hist(btable):
         ax.hist(btable['bgb'][btable['btype'] == bt],bins=20,range=(-1000,1000),histtype='stepfilled',color=clr)
         ax.set_ylim(0,200)
         ax.set_title(btype_dict[bt])
-        print '%s blazars: mean B_gB = %i' % (bt,np.mean(btable['bgb'][btable['btype'] == bt]))
+        print '%s blazars: median B_gB = %i' % (bt,np.median(btable['bgb'][btable['btype'] == bt]))
 
-        ax.vlines(np.mean(btable['bgb']),ax.get_ylim()[0],ax.get_ylim()[1],lw=2,color='k')
-        ax.vlines(np.mean(btable['bgb'][btable['btype']==bt]),ax.get_ylim()[0],ax.get_ylim()[1],lw=2,linestyle='--',color=clr)
+        ax.vlines(np.median(btable['bgb']),ax.get_ylim()[0],ax.get_ylim()[1],lw=2,color='k')
+        ax.vlines(np.median(btable['bgb'][btable['btype']==bt]),ax.get_ylim()[0],ax.get_ylim()[1],lw=2,linestyle='--',color=clr)
 
     for ax in axarr[1,:]:
         ax.set_xlabel(r'$B_{gB}$',fontsize=28)
@@ -337,13 +343,17 @@ def plot_bgb_hist(btable):
     for ax in axarr[:,0]:
         ax.set_ylabel('Count',fontsize=28)
 
-    plt.show()
 
-    fig.savefig('%s/paper/figures/bgb_hist.pdf' % blazardir)
+    fig.tight_layout()
+    if savefig:
+        fig.savefig('%s/paper/figures/bgb_hist.pdf' % blazardir)
+    else:
+        plt.show()
+
 
     return None
 
-def plot_bgb_redshift(btable):
+def plot_bgb_redshift(btable,savefig=False):
 
     fig = plt.figure(2,figsize=(9,7))
     fig.clf()
@@ -394,10 +404,149 @@ def plot_bgb_redshift(btable):
     for label in legend.get_texts():
         label.set_fontsize(20)
     
-    #plt.show()
     fig.tight_layout()
-    fig.savefig('%s/paper/figures/bgb_redshift.pdf' % blazardir)
+    if savefig:
+        fig.savefig('%s/paper/figures/bgb_redshift.pdf' % blazardir)
+    else:
+        plt.show()
+
 
     return None
+
+def check_circularity(rows):
+
+    # Figure out whether the distribution of points around a center indicates that it's near the edge of a run
+
+    from astropy import units as u
+    from astropy.coordinates import SkyCoord,Angle
+
+    ra_cen = rows[0]['ra']
+    dec_cen = rows[0]['dec']
+
+    position_angles = []
+    c1 = SkyCoord(ra_cen,dec_cen,unit=u.degree,frame='fk5')
+    c2 = SkyCoord([rows['neighbor_ra']],[rows['neighbor_dec']],unit=u.degree,frame='fk5')
+    position_angles = c1.position_angle(c2).degree
+    n,bins = np.histogram(position_angles[0,:],bins=np.arange(37)*10.,normed=True)
+
+    if max(n) > 0.01:
+        is_circular = False
+    else:
+        is_circular = True
+
+    return is_circular
+
+def plot_circularity(data):
+
+    blazars = set(data['bname'])
+
+    fig = plt.figure(figsize=(12,6))
+    ax = fig.add_subplot(121)
+    ax_wrapped = fig.add_subplot(122)
+
+    fig2 = plt.figure(figsize=(10,10))
+
+    for i,b in enumerate(blazars):
+    
+        name_match = (data['bname'] == b)
+        rows = data[name_match]
+        ra_cen = rows['ra'][0]
+        dec_cen = rows['dec'][0]
+        position_angles = check_circularity(ra_cen,dec_cen,rows,wrap=False)
+        position_angles_wrapped = check_circularity(ra_cen,dec_cen,rows,wrap=True)
+    
+        bins = np.arange(37)*10.
+        if name_match.sum() > 25:
+            n,bins,edges = ax.hist(position_angles[0,:],bins=bins,histtype='step',color='k',alpha=0.2,normed=True)
+            n_wrapped,bins_wrapped,edges_wrapped = ax_wrapped.hist(position_angles_wrapped[0,:],bins=bins,histtype='step',color='b',alpha=0.2,normed=True)
+            if max(n) > 0.0075:
+                pcolor = 'r'
+            elif max(n_wrapped) > 0.010:
+                pcolor = 'b'
+            else:
+                pcolor = 'k'
+
+        axp = fig2.add_subplot(9,9,i+1)
+        axp.scatter(rows['neighbor_ra'],rows['neighbor_dec'],color=pcolor)
+
+    fig.tight_layout()
+    plt.show()
+    
+    return None
+
+def bzcat5(nmin=10):
+
+    from astropy.io import ascii
+    #data = ascii.read("../bzcat5/bzcat_sdss.csv",format='csv',guess=False)
+    data = ascii.read("../newdata/all_blazars_sdss.csv",format='csv',guess=False)
+    
+    blazars = set(data['bname'])
+
+    bad = 0
+    good = 0
+    noncirc = 0
+
+    col_bname = []
+    col_btype = []
+    col_ra = []
+    col_dec = []
+    col_catalogue = []
+    col_nt = []
+    col_nb = []
+    col_z = []
+    col_field_size = []
+    col_counting_mag = []
+    col_bgb = []
+    col_bgb_err = []
+
+    from datetime import datetime as dt
+
+    print dt.today().strftime("%H:%M:%S.%f")
+    for i,b in enumerate(blazars):
+    
+        name_match = (data['bname'] == b)
+        ngals = np.sum(name_match)
+
+        rows = data[name_match]
+    
+        nt,nb,field_size,z,counting_mag = bstats(rows)
+        b_val,b_err = get_bgb(nt, nb, field_size, z, counting_mag, lf = 'dr6ages')
+            
+        if nt+nb >= nmin:
+            if check_circularity(rows):
+                good += 1
+                #print '{2:20} -- nt={3:4d}, nb={4:4d}, field={5:.1f}, z={6:.2f}, mag={7:.1f}, B_gB = ({0:.2f} +- {1:.2f}) Mpc^1.77'.format(b_val.value,b_err.value,b,nt,nb,field_size,z,counting_mag)
+                col_bname.append(b)
+                col_btype.append((data[name_match][0]['btype']).strip())
+                col_ra.append((data[name_match][0]['ra']))
+                col_dec.append((data[name_match][0]['dec']))
+                col_catalogue.append((data[name_match][0]['catalog']).strip())
+                col_nt.append(nt)
+                col_nb.append(nb)
+                col_z.append(z)
+                col_field_size.append(field_size.value)
+                col_counting_mag.append(counting_mag)
+                col_bgb.append(b_val.value)
+                col_bgb_err.append(b_err.value)
+
+            else:
+                noncirc += 1
+                #print '{0} is non-circular'.format(b)
+        else:
+            bad += 1
+            #print '{0} had only {1:d} galaxies within r_proj = 500 kpc'.format(b,nt)
+            #pass
+
+        if not (i % 50):
+            print "Completed {0}/{1} at {2}".format(i,len(blazars),dt.today().strftime("%H:%M:%S.%f"))
+    
+    print "\n{0} with BgB, {1} with < {3}, {2} non-circular".format(len(blazars)-bad-noncirc,bad,noncirc,nmin)
+    print dt.today().strftime("%H:%M:%S.%f")
+
+    btable = Table([col_bname,col_btype,col_ra,col_dec,col_catalogue,col_nt,col_nb,col_z,col_field_size,col_counting_mag,col_bgb,col_bgb_err], names=('bname','btype','ra','dec','catalogue','nt','nb','z','field_size','counting_mag','bgb','bgb_err'), meta={'name': 'All blazars in SDSS'})
+
+    #btable.write('../bzcat5/bzcat5_bgb.fits',format='fits')
+
+    return btable
 
 
