@@ -26,11 +26,11 @@
   {Troja}, {Uchiyama}, {Vianello}, {Winer}, {Wood}, \& {Zimmer}}]{ack15}
 {Ackermann}, M., {Ajello}, M., {Atwood}, W.~B., {et~al.} 2015, \apj, 810, 14
 
-\bibitem[{{Ahn} {et~al.}(2014){Ahn}, {Alexandroff}, {Allende Prieto}, {Anders},
-  {Anderson}, {Anderton}, {Andrews}, {Aubourg}, {Bailey}, {Bastien}, \&
-  et~al.}]{ahn14}
-{Ahn}, C.~P., {Alexandroff}, R., {Allende Prieto}, C., {et~al.} 2014, \apjs,
-  211, 17
+\bibitem[{{Alam} {et~al.}(2015){Alam}, {Albareti}, {Allende Prieto}, {Anders},
+  {Anderson}, {Anderton}, {Andrews}, {Armengaud}, {Aubourg}, {Bailey}, \&
+  et~al.}]{ala15}
+{Alam}, S., {Albareti}, F.~D., {Allende Prieto}, C., {et~al.} 2015, \apjs, 219,
+  12
 
 \bibitem[{{Chen} {et~al.}(2009){Chen}, {Gu}, \& {Cao}}]{che09a}
 {Chen}, Z., {Gu}, M., \& {Cao}, X. 2009, \mnras, 397, 1713
@@ -113,6 +113,13 @@
 \bibitem[{{Massaro} {et~al.}(2009){Massaro}, {Giommi}, {Leto}, {Marchegiani},
   {Maselli}, {Perri}, {Piranomonte}, \& {Sclavi}}]{mas09}
 {Massaro}, E., {Giommi}, P., {Leto}, C., {et~al.} 2009, \aap, 495, 691
+
+\bibitem[{{Massaro} {et~al.}(2015){Massaro}, {Maselli}, {Leto}, {Marchegiani},
+  {Perri}, {Giommi}, \& {Piranomonte}}]{mas15}
+{Massaro}, E., {Maselli}, A., {Leto}, C., {et~al.} 2015, \apss, 357, 75
+
+\bibitem[{{Massaro} {et~al.}(2012){Massaro}, {Nesci}, \& {Piranomonte}}]{mas12}
+{Massaro}, E., {Nesci}, R., \& {Piranomonte}, S. 2012, \mnras, 422, 2322
 
 \bibitem[{{Mayo} {et~al.}(2012){Mayo}, {Vernet}, {De Breuck}, {Galametz},
   {Seymour}, \& {Stern}}]{may12}

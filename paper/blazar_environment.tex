@@ -7,6 +7,7 @@
 \usepackage{natbib}
 \usepackage{amsmath}
 \usepackage{color}
+\usepackage{url}
 \bibliographystyle{apj}
 
 \input blazar_environment_macros.tex
@@ -16,9 +17,9 @@
 
 \begin{document}
 
-\title{Environmental And Clustering Properties Of BL Lac and FSRQ Blazars}
+\title{Environmental And Clustering Properties Of BL~Lac and FSRQ Blazars}
 
-\author{Kyle W. Willett, Lucy F. Fortson, Thomas J. Nelson, Karlen Shahinyan, Jonathan Dumm}
+\author{UMN blazar group}
 \affil{School of Physics and Astronomy, University of Minnesota, Minneapolis, MN 55455}
 
 %%%%%%%%%%%%
@@ -26,7 +27,9 @@
 %%%%%%%%%%%%
 
 \begin{abstract}
-We present results from a large-scale study of the megaparsec-scale environments of blazars, including BL~Lac objects and flat-spectrum radio quasars. Using the catalog of galaxies from the Sloan Digital Sky Survey DR10 catalog, we compute spatial covariance amplitudes for a sample of 757~blazars. The covariance amplitudes are analyzed to compute the relative levels of clustering for various blazar types. We also compare the clustering of blazars to \FRI{} and \FRII{} radio galaxies to explore possibility of a parent population in the context of a blazar sequence. Finally, we present preliminary results on the morphologies of galaxies located within 1~Mpc of blazars, with classifications supplied by Galaxy Zoo data.
+We present results from a large-scale study of the megaparsec-scale environments of blazars, including BL~Lac objects and flat-spectrum radio quasars. Using the catalog of galaxies from the Sloan Digital Sky Survey DR12 catalog, we compute spatial covariance amplitudes for a sample of 657~blazars. The covariance amplitudes are analyzed to compute the relative levels of clustering for various blazar types. We also compare the clustering of blazars to \FRI{} and \FRII{} radio galaxies to explore possibility of a parent population in the context of a blazar sequence. Finally, we present preliminary results on the morphologies of galaxies located within 1~Mpc of blazars, with classifications supplied by Galaxy Zoo data. \\
+
+{\note Note: numbers in red need to be updated for the final BZCAT5 sample.}
 \end{abstract}
 
 \keywords{blazars}
@@ -196,24 +199,24 @@ M_i^*[z] = M_i^*[0] + K_i[z] + E_i[z],
 
 \section{Sample}\label{sec:sample}
 
-The parent blazar sample was assembled from available compilations in the literature. The primary source for blazar identification comes from the multi-frequency catalog Roma-BZCAT \citep{mas09}. BZCAT compiles known blazars from numerous surveys, primarily in radio and X-ray wavelengths. Photometric information includes the radio flux density at 1.4~GHz and the X-ray flux between 0.1--2.4~keV, as well as its $R$-band magnitude as determined from SDSS. We supplemented Roma-BZCAT with SDSS optically-selected BL~Lac \citep{plo10} and FSRQ candidates \citep{che09a}, along with gamma-ray selected blazars from TeVCat \citep{hor08}. 
+The parent blazar sample was assembled from available compilations in the literature. The primary source for blazar identification comes from the $5^\mathrm{th}$ edition of the multi-frequency catalog Roma-BZCAT\footnote{\url{http://www.asdc.asi.it/bzcat/}} \citep{mas15}. BZCAT compiles known blazars from numerous surveys, primarily in radio and X-ray wavelengths. Photometric information includes the radio flux density at 1.4~GHz and the X-ray flux between 0.1--2.4~keV, as well as its $r^\prime$-band magnitude as determined from SDSS. We supplement BZCAT with SDSS optically-selected BL~Lac \citep{plo10} and FSRQ candidates \citep{che09a}, along with gamma-ray selected blazars from TeVCat \citep{hor08}. 
 
 \begin{figure}
 %\includegraphics[width=3.5in]{blazar_zhist.eps}
-\includegraphics[width=3.5in]{figures/blazars_zhist.pdf}
-\caption{Redshift distribution for the 778~blazars within the footprint of SDSS DR10 at $0.043<z<0.75$. BL~Lacs dominate the population at $z<0.5$, while FSRQs are more common at higher redshifts. 
+\includegraphics[width=3.5in]{figures/bzcat5/blazars_zhist.png}
+\caption{Redshift distribution for the 657~blazars within the footprint of SDSS~DR12 at $0.043<z<0.75$. BL~Lacs and BL~Lac candidates dominate the population at $z<0.5$, while FSRQs are more common at higher redshifts. 
 \label{fig:blazar_zhist}}
 \end{figure}
 
-After removing duplicates, the combined catalogs yielded 2934~blazars. Figure~\ref{fig:blazar_zhist} shows their redshift distribution. The distribution varies significantly by blazar sub-type; FSRQs comprise 90\% of the blazars at $z>0.1$, with a mean redshift of $\langle z\rangle=1.34$. The BL~Lacs have a much lower average redshift, at $\langle z\rangle=0.37$. Unclassified blazars \citep[``QSO candidates'', as defined by][]{mas09} have a mean redshift of $0.30$; however, a K-S test confirms {\note (to what $d$-value?)} that its redshift distribution is more consistent with BL~Lacs than QSOs. 
+After removing duplicates, the combined catalogs yielded 3,631~blazars; of those, 2,844 have a published redshift. Figure~\ref{fig:blazar_zhist} shows their redshift distribution {\note (change this figure so that it shows ALL blazars, not just those we ultimately included?)}. The distribution varies significantly by blazar sub-type; FSRQs comprise 95\% of the blazars at $z>1$, with a mean redshift of $\langle z\rangle=1.4$. The BL~Lacs have a much lower average redshift, at $\langle z\rangle=0.45$. Unclassified blazars \citep[``QSO candidates'', as defined by][]{mas09} have a mean redshift of {\note$X.XX$}; however, a K-S test confirms {\note (to what $d$-value?)} that its redshift distribution is more consistent with BL~Lacs than QSOs. 
 
-We then take the positions of each blazar and searched the SDSS DR10 catalog \citep{ahn14} for entries in the ``PhotoObj'' table for nearby neighbors, and restricting results to objects the SDSS pipeline identified as galaxies. The angular radius of the search for each blazar is set at a projected distance 500~kpc at the redshift of the blazar. The apparent magnitude down to which a galaxy is considered for counting is the brighter of: $M_r^* + 2 > M_{r,lim}$, where $M_{r,lim}$ is the absolute magnitude corresponding to the $r$-band completeness limit of the SDSS at the distance of the blazar. 
+We then take the positions of each blazar and searched the SDSS DR12 catalog \citep{ala15} for entries in the \texttt{PhotoObj} table for nearby neighbors, and restricting results to objects identified by the SDSS pipeline as galaxies. The angular radius of the search for each blazar is set at a projected distance of 500~kpc at the redshift of the blazar. The apparent magnitude down to which a galaxy is considered for counting is the brighter of: $M_r^* + 2 > M_{r,lim}$, where $M_{r,lim}$ is the absolute magnitude corresponding to the $r$-band completeness limit of the SDSS at the distance of the blazar. 
 
 The value of \bgb{} is computed for each blazar using Equation~\ref{eqn:bgb}. Parameters for local galaxies ($z<0.15$) were taken from the SDSS~DR6 $r'$-band luminosity function of \citet{mon09a}, with $\phi^*=3.22\times10^{-3}$~Mpc$^{-3}$, $M_r^*=-21.47$, and $\alpha=-1.23$ (assuming $h=0.71$). For higher-redshift galaxies, we evolve the luminosity function in bins of $\Delta z=0.1$ out to $z=0.65$ using the $^{0.1}r$-band fits to all galaxies in the AGES survey \citep{coo12}. 
 
 We confirm that computing the spatial covariance amplitudes for a uniformly random set of positions within the SDSS footprint yields an average value consistent with $B=0$, verifying that our background subtraction is being correctly computed. 
 
-Several additional constraints further lower the number of blazars on which clustering analysis can be performed. Although BZCAT is an all-sky catalog, only 1834 (63\%) of the objects fall within the SDSS footprint. Of those blazars, we analyze data only for blazars in the redshift range $0.043<z<0.75$. The lower limit is due to the practical consideration of searching large areas of sky within a projected radius of 500~kpc, which corresponds to an angular size of 10\arcmin. This eliminated 1.5\% of the blazars within the SDSS footprint. The upper redshift limit is set by the sensitivity of the SDSS; blazars at high redshifts will have fewer neighboring galaxies that can be detected with SDSS. For high redshift objects computing the \bgb{} coefficient will (statistically) include no neighbors that are physically associated with the blazar, and so the clustering coefficient approaches that of the background sky. The upper redshift limit is thus chosen so that our absolute counting magnitude corresponds to an $M^*$ galaxy at $z=0.75$, eliminating another 41\% of the blazars in the SDSS footprint. Finally, to ensure that measurements of \bgb{} are not dominated by low number counts, we analyze only blazars with at least 10~neighboring galaxies detected. The final sample contains 757~blazars, with 528~BL~Lacs, 98~FSRQs, and 131~unclassified blazars. 
+Several additional constraints further lower the number of blazars on which clustering analysis can be performed. Although BZCAT is an all-sky catalog, only $\sim60\%$ of the objects fall within the SDSS footprint. Of those blazars, we analyze data only for blazars in the redshift range $0.043<z<0.75$. The lower limit is due to the practical consideration of searching large areas of sky within a projected radius of 500~kpc, which corresponds to an angular size of 10\arcmin. This eliminated {\note 1.5\%} of the blazars within the SDSS footprint. The upper redshift limit is set by the sensitivity of the SDSS; blazars at high redshifts will have fewer neighboring galaxies that can be detected with SDSS. For high redshift objects computing the \bgb{} coefficient will (statistically) include no neighbors that are physically associated with the blazar, and so the clustering coefficient approaches that of the background sky. The upper redshift limit is thus chosen so that our absolute counting magnitude corresponds to an $M^*$ galaxy at $z=0.75$, eliminating another {\note 41\%} of the SDSS blazars. Finally, to ensure that measurements of \bgb{} are not dominated by low number counts, we analyze only blazars with at least 10~neighboring galaxies detected. The final sample contains 657~blazars, with 528~BL~Lacs, 98~FSRQs, and 131~unclassified blazars. 
 
 %%%%%%%%%%%%
 %%% RESULTS
@@ -223,8 +226,8 @@ Several additional constraints further lower the number of blazars on which clus
 
 \begin{figure}
 %\includegraphics[width=3.5in]{bgb_hist.eps}
-\includegraphics[width=3.5in]{figures/bgb_hist.pdf}
-\caption{Distribution of spatial clustering amplitudes (\bgb) from SDSS imaging for various blazar sub-types. Dashed lines show the median \bgb{} values for both the overall blazar (solid) and sub-samples (dashed), respectively. All blazars have average \bgb{} values higher than the background; the average \bgb{} for BL Lacs and candidates is 2--3~times higher than that for FSRQs.
+\includegraphics[width=3.5in]{figures/bzcat5/bgb_hist.png}
+\caption{Distribution of spatial clustering amplitudes (\bgb) from SDSS imaging for various blazar sub-types. Dashed lines show the median \bgb{} values for both the overall blazar (solid) and sub-samples (dashed), respectively. All blazars have average \bgb{} values higher than the background; the average \bgb{} for BL~Lacs and candidates is 2--3~times higher than that for FSRQs.
 \label{fig:bgb_hist}}
 \end{figure}
 
@@ -232,7 +235,7 @@ Figure~\ref{fig:bgb_hist} shows the distribution of the blazar clustering amplit
 
 Splitting the sample by blazar type, the clustering amplitudes for BL~Lacs and FSRQs are remarkably similar. BL~Lacs have a mean \bgb{} of $148\pm312$, while FSRQs have $144\pm268$. A Kolmogorov-Smirnov test confirms that the distributions are not inconsistent with being drawn from the same population at a probability of $0.274~(1.0\sigma)$. Therefore, there is no evidence based on the clustering statistics that BL~Lacs and FSRQs inhabit different environments at redshifts $z<0.75$. 
 
-Among the objects studied are 131 objects whose blazar type is defined by BZCAT as ``uncertain''. Discuss possibility of matching these to BL~Lac/FSRQ, information available on selection method, and whether the environmental technique might be used as a diagnostic for blazar type. Probably due to optical lines?
+Among the objects studied are {\note XX} objects whose blazar type is defined by BZCAT as ``uncertain'' or galaxy-dominated BL~Lacs \citep{mas12}. Discuss possibility of matching these to BL~Lac/FSRQ, information available on selection method, and whether the environmental technique might be used as a diagnostic for blazar type. Probably due to optical lines?
 
 Results from our study can be compared to earlier results; however, differences in the parameters used in Equation~\ref{eqn:bgb} will cause systematic differences. The most immediate are the parameters used for the galaxy luminosity function $\Psi[M]$ and the cosmology used to compute the distance. For example, applying the cosmology assumed by \citet{wur97} ($q_0=0.02, \Omega_\Lambda=0, H_0=50~\mbox{km s}^{-1}\mbox{Mpc}^{-1}$) to our blazar sample raises the mean \bgb{} value from $121\pm436$ to $167\pm558$. Their luminosity function parameters are very similar to our own, with a slightly shallower slope ($\alpha=-1.0$), a $M_r^*$ value of $-20.9$, and a luminosity function evolution where $M$ evolves as $E(z)\sim z$. Adjusting only for the cosmology, our mean value for the BL~Lacs of $161\pm367$ is close to the \citet{wur97} value of $209\pm386$. 
 
@@ -240,7 +243,7 @@ The blazar \bgb{} values are relatively flat as a function of redshift for $z<0.
 
 \begin{figure}
 %\includegraphics[width=3.5in]{bgb_redshift.eps}
-\includegraphics[width=3.5in]{figures/bgb_redshift.pdf}
+\includegraphics[width=3.5in]{figures/bzcat5/bgb_redshift.png}
 \caption{\bgb{} for the blazars as a function of redshift. Grey points show measurements (with uncertainties) for individual blazars; blue and red circles show the binned mean values for \bgb{} for the BL~Lac and FSRQ sub-samples. 
 \label{fig:bgb_redshift}}
 \end{figure}
@@ -286,7 +289,7 @@ Finally, we looked at host galaxies using the GZ1 classifications to see how the
 
 The mean $B$ values for the galaxies selected by optical morphology are significantly different; elliptical galaxies resemble the blazar and radio galaxy distributions, with a mean covariance amplitude of $168\pm316$. Spiral galaxies have much lower $B$ values, however, with a larger spread and a mean close to zero ($12\pm359$). The K-S test applied to spiral galaxies and the blazar distribution (matching the spiral redshift range) is inconsistent at the 2.7$\sigma$ level. While the means for both are much closer, it should be noted that a K-S test is also inconsistent between the {\em elliptical} galaxy $B$ distribution and the blazars. This is more puzzling, since blazar hosts are thought to be almost without exception elliptical galaxies \citep{urr95}. 
 
-\begin{deluxetable*}{lrccl}
+\begin{deluxetable*}{lrrrl}
 \tabletypesize{\scriptsize}
 \tablecaption{Measured spatial covariance amplitudes from SDSS imaging \label{tbl:bgtable}}
 \tablewidth{0pt}
@@ -304,27 +307,27 @@ The mean $B$ values for the galaxies selected by optical morphology are signific
 \colhead{}
 }
 \startdata
-Blazars                                   & 757         & 121            & 436            & 1,2,3   \\
-\hspace{10 pt} BL~Lac                     & 528         & 111            & 257            &         \\
-\hspace{10 pt} FSRQ                       & 98          & 116            & 278            &         \\
-\hspace{10 pt} Uncertain                  & 131         & 143            & 859            &         \\
-
-Radio galaxies                            & 283         & 131            & 410            & 4       \\
+Blazars                                   & 657         & 195            & 1232           & 1,2,3,4 \\
+\hspace{10 pt} BL~Lac                     & 262         & 82             & 206            &         \\
+\hspace{10 pt} FSRQ                       & 137         & 55             & 155            &         \\
+\hspace{10 pt} Uncertain                  & 258         & 382            & 1938           &         \\
+Radio galaxies                            & 283         & 131            & 410            & 5       \\
 \hspace{10 pt} FR I                       & 55          & 138            & 598            &         \\
 \hspace{10 pt} FR II                      & 184         & 133            & 372            &         \\
 \hspace{10 pt} Compact                    & 44          & 111            & 258            &         \\
 
-Radio galaxies (optical counterparts)     & 258         & 269            & 357            & 5       \\
+Radio galaxies (optical counterparts)     & 258         & 269            & 357            & 6       \\
 \hspace{10 pt} Complex                    & 111         & 321            & 357            &         \\
 \hspace{10 pt} Compact                    & 37          & 282            & 434            &         \\
 \hspace{10 pt} Resolved                   & 110         & 211            & 323            &         \\
 
-Optical galaxies                          & 624         & 125            & 335            & 6       \\
+Optical galaxies                          & 624         & 125            & 335            & 7       \\
 \hspace{10 pt} Elliptical                 & 540         & 145            & 329            &         \\
 \hspace{10 pt} Spiral                     & 84          & $-2$           & 348            &         \\
 
 \enddata
-\tablerefs{(1) - \citet{mas09}; (2) - \citet{plo10}; (3) - \citet{hor08}; (4) - \citet{gen08}; (5) - \citet{kim08}; (6) - \citet{lin11}}
+\tablerefs{(1) - \citet{mas15}; (2) - \citet{plo10}; (3) - \citet{hor08}; (4) - \citet{che09a}; (5) - \citet{gen08}; (6) - \citet{kim08}; (7) - \citet{lin11}}
+\tablecomments{``Uncertain'' blazar types include both BL~Lac candidates and galaxy-dominated BL~Lacs.}
 \end{deluxetable*}
 
 \subsection{The blazar sequence/envelope}\label{ssec:sequence}
@@ -332,7 +335,7 @@ Optical galaxies                          & 624         & 125            & 335  
 \begin{figure}
 %\includegraphics[width=3.5in]{bgb_blazarsequence_allseds.eps}
 \includegraphics[width=3.5in]{figures/bgb_blazarsequence_allseds.pdf}
-\caption{Blazars from the \citet{mey11} TEX sample for which we were able to calculate \bgb{} values, plotted as a function of their peak synchrotron frequency and luminosity. The size of the symbol is proportional to the blazar \bgb{} value, while the color is set by the blazar redshift. The two dashed lines show the expected tracks that a blazar would follow as the inclination angle with respect to the observer increases \citep[Figure~4 in][]{mey11}. The track on the left is for a single-component jet and the track on the right is for a weak, decelerating jet.
+\caption{Blazars from the \citet{mey11} TEX sample for which we were able to calculate \bgb{} values, plotted as a function of their peak synchrotron frequency and luminosity. The size of the symbol is proportional to the blazar \bgb{} value, while the color is set by the blazar redshift. The two dashed lines show the expected tracks that a blazar would follow as the inclination angle with respect to the observer increases \citep[Figure~4 in][]{mey11}. The track on the left is for a single-component jet and the track on the right is for a weak, decelerating jet. {\note This plot shows BZCAT2 data.}
 \label{fig:blazarsequence}}
 \end{figure}
 
