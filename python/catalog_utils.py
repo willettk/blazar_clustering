@@ -5,16 +5,16 @@ from numpy.lib import recfunctions
 import astropy.io.fits as pf
 from astroquery.ned import Ned
 
-def readBZB(bzb_filename):
-    '''reads Kyle's catalog, expecting the csv file to be in this directory'''
-    print '** Reading Kyle\'s catalog'
-    dat = recfromcsv(bzb_filename, unpack=True)
-    return dat
+#def readBZB(bzb_filename):
+#    '''reads Kyle's catalog, expecting the csv file to be in this directory'''
+#    print '** Reading Kyle\'s catalog'
+#    dat = recfromcsv(bzb_filename, unpack=True)
+#    return dat
 
-def readFermi(fermi_filename):
-    '''reads the 3FGL catalog, expecting file to be in this directory'''
-    print '** Reading 3FGL catalog'
-    dat = pf.getdata(fermi_filename)
+def readCat(filename):
+    '''reads fits catalog and returns the data table'''
+    f = pf.open(filename)
+    dat = f[1].data
     return dat
 
 def queryNED(names,cat):
@@ -52,7 +52,7 @@ def supplementBZBWithNED(bzb_filename, overwrite = False):
         orig_file = os.path.splitext(bzb_filename)
         out_name = orig_file[0]+'_sup'+orig_file[1]
 
-    bzb_dat = readBZB(bzb_filename)
+    bzb_dat = readCat(bzb_filename)
 
     name_col = queryNED(bzb_dat['bname'],'bzb')
 
@@ -75,7 +75,7 @@ def supplementFermiWithNED(fermi_filename, overwrite = False):
         out_file = orig_file[0]+'_sup'+orig_file[1]
 
 
-    fermi_dat = readFermi(fermi_filename)
+    fermi_dat = readCat(fermi_filename)
     fermi_cols = fermi_dat.columns
 
     name_col = queryNED(fermi_dat['ASSOC1'],'fermi')

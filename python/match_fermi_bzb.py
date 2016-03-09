@@ -220,15 +220,15 @@ def main():
 
     if args.supplement:
         print "--- supplement option enabled ---"
-        utils.supplementBZBWithNED('../data/blazars_bgb.csv')
+        utils.supplementBZBWithNED('../data/bzcat5_extended_names.fits')
         utils.supplementFermiWithNED('../data/gll_psc_v16.fit')
         sys.exit("Added a column with NED names to 3FGL and bzcat catalog files. Exiting...")
     
     #reading in catalogs
     try:
         #fermi_dat = Table.read('../data/gll_psc_v16_sup.fit',format='fits')
-        fermi_dat = utils.readFermi('../data/gll_psc_v16_sup.fit')
-        bzb_dat = utils.readBZB('../data/blazars_bgb_sup.csv')
+        bzb_dat = utils.readCat('../data/bzcat5_extended_names_sup.fits')
+        fermi_dat = utils.readCat('../data/gll_psc_v16_sup.fit')
     except:
         sys.exit("ERROR: Run with the supplement option first:  'python match_fermi_bzb.py --supplement'")
     #fermi_dat = utils.readFermi('../data/gll_psc_v16.fit')
