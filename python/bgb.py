@@ -23,6 +23,7 @@ btype_dict = {'bllac':'BL Lac','fsrq':'FSRQ','uncertain':'Blazar (uncertain type
 def schechter_mag(phi_star,mr_star,alpha,m):
 
     # Differential form of the Schechter luminosity function in absolute magnitudes 
+
     sch_mag = 0.4 * np.log(10)  * phi_star* (10.**(0.4 * (mr_star - m)))**(alpha + 1.) * np.exp(-1. * (10.**(0.4*(mr_star - m)))) 
 
     return sch_mag
@@ -160,6 +161,8 @@ def get_bgb(nt, nb, field_size, z, counting_mag, lf = 'dr6ages', verbose=False):
 
 def bstats(data):
 
+    # For a row in the data table, get the relevant parameters used to calculate B_gB
+
     z = data['z'][0]
 
     # Angular size of the field to count neighbors
@@ -219,6 +222,8 @@ def bstats(data):
 
 def load_blazar_data(zcut=True):
 
+    # Load the newest version of the blazar data from BZCAT5 and SDSS
+
     with fits.open('%s/newdata/output/sdss/blazars_unique_all_10arcmin_sdss.fits' % blazardir) as f:
         data = f[1].data
 
@@ -228,6 +233,8 @@ def load_blazar_data(zcut=True):
     return data
     
 def bgb_blazars(data):
+
+    # Calculate B_gB for every blazar in the table. Deprecated.
 
     blazars = set(data['bname'])
 
@@ -280,6 +287,8 @@ def bgb_blazars(data):
 
 def plot_zhist(btable,savefig=False):
 
+    # Plot the histogram of redshift distributions. Currently Figure 1 in the paper draft.
+
     fig = plt.figure(1,figsize=(9,7))
     fig.clf()
     ax = fig.add_subplot(111)
@@ -320,6 +329,8 @@ def plot_zhist(btable,savefig=False):
 
 def plot_bgb_hist(btable,savefig=False):
 
+    # Plot histograms of B_gB for the blazars, split by type (BL Lac, FSRQ, etc). Currently Figure 2 in the paper draft.
+
     fig,axarr = plt.subplots(2,3,sharex=True,sharey=True,figsize=(14,8),num=1)
     btypes = set(btable['btype'])
     print '\nAll blazars: median B_gB = %i' % np.median(btable['bgb'])
@@ -354,6 +365,8 @@ def plot_bgb_hist(btable,savefig=False):
     return None
 
 def plot_bgb_redshift(btable,savefig=False):
+
+    # Plot B_gB as a function of redshift. Currently Figure 3 in the paper draft.
 
     fig = plt.figure(2,figsize=(9,7))
     fig.clf()
@@ -415,7 +428,8 @@ def plot_bgb_redshift(btable,savefig=False):
 
 def check_circularity(rows):
 
-    # Figure out whether the distribution of points around a center indicates that it's near the edge of a run
+    # Figure out whether the distribution of points around a center indicates that it's near the edge of a run. 
+    # If so, that means bad data and that we should probably drop that blazar from the sample.
 
     from astropy import units as u
     from astropy.coordinates import SkyCoord,Angle
@@ -437,6 +451,8 @@ def check_circularity(rows):
     return is_circular
 
 def plot_circularity(data):
+
+    # Plot the circularity parameter for a set of blazars
 
     blazars = set(data['bname'])
 
@@ -475,6 +491,8 @@ def plot_circularity(data):
     return None
 
 def bzcat5(nmin=10):
+
+    # Compute B_gB for the newest blazar data and return as a table. 
 
     from astropy.io import ascii
     #data = ascii.read("../bzcat5/bzcat_sdss.csv",format='csv',guess=False)
